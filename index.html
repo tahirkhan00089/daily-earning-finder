@@ -27,6 +27,7 @@ textarea{min-height:90px}
 button.action{background:#047857;color:white;border:0;padding:11px 15px;border-radius:7px;font-weight:bold;margin:5px 3px;cursor:pointer}
 button.secondary{background:#64748b}
 button.danger{background:#dc2626}
+button:disabled{opacity:.6;cursor:not-allowed}
 .job{background:white;border:1px solid #d1e7dc;border-radius:10px;padding:15px;margin:12px 0;box-shadow:0 2px 6px #0000000a}
 .job h3{margin:0 0 8px;color:#047857}
 .job p{line-height:1.5}
@@ -36,6 +37,7 @@ a{color:#047857;font-weight:bold}
 footer{text-align:center;padding:20px;color:#64748b;font-size:13px}
 hr{border:0;border-top:1px solid #d1e7dc;margin:20px 0}
 .status{padding:10px;background:#ecfdf5;border-radius:7px;font-size:13px;margin:10px 0}
+.error{background:#fee2e2;color:#991b1b}
 </style>
 </head>
 
@@ -66,7 +68,7 @@ hr{border:0;border-top:1px solid #d1e7dc;margin:20px 0}
 <option>Design</option>
 <option>Microtasks</option>
 </select>
-<div id="connectionStatus" class="status">Loading opportunities...</div>
+<div id="connectionStatus" class="status">Connecting to database...</div>
 <div id="jobList"></div>
 </section>
 
@@ -86,18 +88,24 @@ hr{border:0;border-top:1px solid #d1e7dc;margin:20px 0}
 <h2>Contact Us</h2>
 <p>For questions or suggestions, contact us by email:</p>
 <p><a href="mailto:dailyearningfinder@gmail.com">dailyearningfinder@gmail.com</a></p>
-<p class="small">Replace this email address with your own contact email when you are ready.</p>
 </section>
 
 <section id="admin" class="section">
 <h2>Admin Panel</h2>
+
 <div id="adminLogin">
-<p>Enter admin PIN to manage opportunities.</p>
-<input id="adminPin" type="password" placeholder="Enter admin PIN">
-<button class="action" onclick="adminLogin()">Login</button>
+<p>Login with your registered administrator Gmail and password.</p>
+<input id="adminEmail" type="email" placeholder="Admin Gmail address" autocomplete="username">
+<input id="adminPassword" type="password" placeholder="Admin password" autocomplete="current-password">
+<button class="action" id="loginButton" onclick="adminLogin()">Login</button>
+<div id="loginStatus" class="status">Please log in to manage opportunities.</div>
 </div>
 
 <div id="adminPanel" style="display:none">
+<div class="status" id="adminWelcome">Admin authenticated.</div>
+<button class="action danger" onclick="adminLogout()">Logout</button>
+
+<hr>
 <h3 id="formHeading">Add New Opportunity</h3>
 <input id="jobName" placeholder="Opportunity name">
 <select id="jobCategory">
@@ -109,10 +117,12 @@ hr{border:0;border-top:1px solid #d1e7dc;margin:20px 0}
 </select>
 <textarea id="jobDescription" placeholder="Opportunity description"></textarea>
 <input id="jobLink" type="url" placeholder="Website link (https://...)">
-<button class="action" onclick="saveJob()">Save Opportunity</button>
+<button class="action" id="saveButton" onclick="saveJob()">Save Opportunity</button>
 <button class="action secondary" onclick="clearForm()">Clear</button>
+
 <hr>
-<h3>Manage Opportunities</h3>
+<h3>Manage Database Opportunities</h3>
+<p class="small">These opportunities are saved online in your Supabase database.</p>
 <div id="adminJobList"></div>
 </div>
 </section>
@@ -122,20 +132,21 @@ hr{border:0;border-top:1px solid #d1e7dc;margin:20px 0}
 <footer>Daily Earning Finder | Pakistan</footer>
 
 <script>
-// SUPABASE CONNECTION
+// SUPABASE SETTINGS
 const SUPABASE_URL = "https://pzvhuoxiljgqvxoqzeat.supabase.co";
-
-// REPLACE THE TEXT BELOW WITH YOUR OWN sb_publishable_ KEY
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_-0VP2OL4NDjn9nxm8u5sFQ_Ze2MJfCi";
+const ADMIN_USER_ID = "42bfb0ce-614e-4e95-bbf7-355db47b4b16";
 
 let supabaseClient = null;
 let databaseJobs = [];
+let editingId = null;
+let currentUser = null;
 
-if (window.supabase && SUPABASE_PUBLISHABLE_KEY !== "PASTE_YOUR_COPIED_KEY_HERE") {
-  supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
+if(window.supabase){
+ supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+ );
 }
 
 // DEFAULT OPPORTUNITIES
@@ -152,14 +163,13 @@ const defaultJobs = [
  {name:"99designs",category:"Design",description:"Explore graphic design projects and creative opportunities.",link:"https://99designs.com"}
 ];
 
-let jobs = JSON.parse(localStorage.getItem("myJobs")) || defaultJobs;
+// KEEP EXISTING LOCAL OPPORTUNITIES
+let localJobs = JSON.parse(localStorage.getItem("myJobs")) || defaultJobs;
 let favorites = JSON.parse(localStorage.getItem("myFavorites")) ||
                 JSON.parse(localStorage.getItem("favorites")) || [];
-let editingIndex = -1;
 
-// SAVE LOCAL DATA
 function saveLocalData(){
- localStorage.setItem("myJobs",JSON.stringify(jobs));
+ localStorage.setItem("myJobs",JSON.stringify(localJobs));
  localStorage.setItem("myFavorites",JSON.stringify(favorites));
 }
 
@@ -169,14 +179,15 @@ function showSection(id,button){
  document.getElementById(id).classList.add("active");
  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
  if(button)button.classList.add("active");
-
  if(id==="favorites")renderFavorites();
- if(id==="admin" && document.getElementById("adminPanel").style.display==="block")renderAdminJobs();
+ if(id==="admin" && currentUser && currentUser.id===ADMIN_USER_ID){
+  renderAdminJobs();
+ }
 }
 
 // COMBINE LOCAL AND DATABASE OPPORTUNITIES
 function allJobs(){
- const combined=[...jobs];
+ const combined=[...localJobs];
  databaseJobs.forEach(dbJob=>{
   const exists=combined.some(j=>
    j.name.toLowerCase()===String(dbJob.name).toLowerCase()
@@ -215,22 +226,28 @@ function renderJobs(){
   const isFav=favorites.includes(job.name);
   const card=document.createElement("div");
   card.className="job";
+
   const heading=document.createElement("h3");
   heading.textContent=job.name;
+
   const tag=document.createElement("span");
   tag.className="category";
   tag.textContent=job.category;
+
   const desc=document.createElement("p");
   desc.textContent=job.description;
+
   const link=document.createElement("a");
   link.href=job.link;
   link.target="_blank";
   link.rel="noopener noreferrer";
   link.textContent="Visit Website";
+
   const fav=document.createElement("button");
   fav.className="action secondary";
   fav.textContent=isFav?"★ Saved":"☆ Favourite";
   fav.onclick=()=>toggleFavorite(job.name);
+
   card.append(heading,tag,desc,link,document.createElement("br"),fav);
   list.appendChild(card);
  });
@@ -261,48 +278,136 @@ function renderFavorites(){
  favJobs.forEach(job=>{
   const card=document.createElement("div");
   card.className="job";
+
   const h=document.createElement("h3");
   h.textContent=job.name;
+
   const p=document.createElement("p");
   p.textContent=job.description;
+
   const a=document.createElement("a");
   a.href=job.link;
   a.target="_blank";
   a.rel="noopener noreferrer";
   a.textContent="Visit Website";
+
   const btn=document.createElement("button");
   btn.className="action danger";
   btn.textContent="Remove Favourite";
   btn.onclick=()=>toggleFavorite(job.name);
+
   card.append(h,p,a,document.createElement("br"),btn);
   list.appendChild(card);
  });
 }
 
-// ADMIN LOGIN
-function adminLogin(){
- const pin=document.getElementById("adminPin").value;
- if(pin==="1234"){
-  document.getElementById("adminLogin").style.display="none";
-  document.getElementById("adminPanel").style.display="block";
+// UPDATE ADMIN DISPLAY
+function updateAdminDisplay(){
+ const isAdmin=!!currentUser && currentUser.id===ADMIN_USER_ID;
+
+ document.getElementById("adminLogin").style.display=isAdmin?"none":"block";
+ document.getElementById("adminPanel").style.display=isAdmin?"block":"none";
+
+ if(isAdmin){
+  document.getElementById("adminWelcome").textContent=
+   "Logged in as "+currentUser.email;
   renderAdminJobs();
  }else{
-  alert("Incorrect PIN. Please try again.");
+  document.getElementById("adminEmail").value="";
+  document.getElementById("adminPassword").value="";
  }
+}
+
+// ADMIN LOGIN WITH SUPABASE
+async function adminLogin(){
+ if(!supabaseClient){
+  alert("Supabase connection is not available.");
+  return;
+ }
+
+ const email=document.getElementById("adminEmail").value.trim();
+ const password=document.getElementById("adminPassword").value;
+ const status=document.getElementById("loginStatus");
+ const button=document.getElementById("loginButton");
+
+ if(!email||!password){
+  status.textContent="Please enter your Gmail and password.";
+  status.className="status error";
+  return;
+ }
+
+ button.disabled=true;
+ button.textContent="Logging in...";
+ status.textContent="Checking your account...";
+ status.className="status";
+
+ try{
+  const {data,error}=await supabaseClient.auth.signInWithPassword({
+   email:email,
+   password:password
+  });
+
+  if(error)throw error;
+
+  if(!data.user || data.user.id!==ADMIN_USER_ID){
+   await supabaseClient.auth.signOut();
+   currentUser=null;
+   updateAdminDisplay();
+   status.textContent="This account is not authorized as the administrator.";
+   status.className="status error";
+   return;
+  }
+
+  currentUser=data.user;
+  updateAdminDisplay();
+  await loadDatabaseJobs();
+  status.textContent="Admin login successful.";
+  status.className="status";
+ }catch(error){
+  status.textContent="Login failed: "+error.message;
+  status.className="status error";
+ }finally{
+  button.disabled=false;
+  button.textContent="Login";
+ }
+}
+
+// ADMIN LOGOUT
+async function adminLogout(){
+ if(!supabaseClient)return;
+
+ const {error}=await supabaseClient.auth.signOut();
+
+ if(error){
+  alert("Logout failed: "+error.message);
+  return;
+ }
+
+ currentUser=null;
+ clearForm();
+ updateAdminDisplay();
+ document.getElementById("loginStatus").textContent="You have logged out.";
+ document.getElementById("loginStatus").className="status";
 }
 
 // CLEAR ADMIN FORM
 function clearForm(){
- editingIndex=-1;
+ editingId=null;
  document.getElementById("jobName").value="";
  document.getElementById("jobCategory").value="Freelancing";
  document.getElementById("jobDescription").value="";
  document.getElementById("jobLink").value="";
  document.getElementById("formHeading").textContent="Add New Opportunity";
+ document.getElementById("saveButton").textContent="Save Opportunity";
 }
 
-// ADD OR EDIT OPPORTUNITY
-function saveJob(){
+// ADD OR EDIT OPPORTUNITY ONLINE
+async function saveJob(){
+ if(!currentUser || currentUser.id!==ADMIN_USER_ID){
+  alert("Please log in with your administrator account.");
+  return;
+ }
+
  const name=document.getElementById("jobName").value.trim();
  const category=document.getElementById("jobCategory").value;
  const description=document.getElementById("jobDescription").value.trim();
@@ -324,95 +429,147 @@ function saveJob(){
   return;
  }
 
- const duplicate=jobs.some((j,i)=>
-  j.name.toLowerCase()===name.toLowerCase()&&i!==editingIndex
+ const duplicate=databaseJobs.some(j=>
+  j.name.toLowerCase()===name.toLowerCase() &&
+  String(j.id)!==String(editingId)
  );
+
  if(duplicate){
-  alert("An opportunity with this name already exists.");
+  alert("An opportunity with this name already exists in the database.");
   return;
  }
 
- const newJob={name,category,description,link};
- if(editingIndex===-1){
-  jobs.push(newJob);
- }else{
-  const oldName=jobs[editingIndex].name;
-  jobs[editingIndex]=newJob;
-  favorites=favorites.map(f=>f===oldName?name:f);
- }
+ const button=document.getElementById("saveButton");
+ button.disabled=true;
+ button.textContent="Saving...";
 
- saveLocalData();
- clearForm();
- renderJobs();
- renderAdminJobs();
- renderFavorites();
- alert("Opportunity saved on this device.");
+ try{
+  const record={name,category,description,link};
+
+  let result;
+
+  if(editingId===null){
+   result=await supabaseClient.from("jobs").insert(record);
+  }else{
+   result=await supabaseClient.from("jobs")
+    .update(record)
+    .eq("id",editingId);
+  }
+
+  if(result.error)throw result.error;
+
+  alert(editingId===null?
+   "Opportunity added successfully online!":
+   "Opportunity updated successfully online!");
+
+  const oldJob=databaseJobs.find(j=>String(j.id)===String(editingId));
+  if(oldJob && oldJob.name!==name){
+   favorites=favorites.map(f=>f===oldJob.name?name:f);
+   saveLocalData();
+  }
+
+  clearForm();
+  await loadDatabaseJobs();
+  renderFavorites();
+
+ }catch(error){
+  console.error(error);
+  alert("Could not save opportunity: "+error.message);
+ }finally{
+  button.disabled=false;
+  button.textContent=editingId===null?"Save Opportunity":"Update Opportunity";
+ }
 }
 
-// ADMIN LIST
+// ADMIN DATABASE LIST
 function renderAdminJobs(){
  const list=document.getElementById("adminJobList");
  list.innerHTML="";
 
- jobs.forEach((job,index)=>{
+ if(databaseJobs.length===0){
+  list.innerHTML="<p>No database opportunities found.</p>";
+  return;
+ }
+
+ databaseJobs.forEach(job=>{
   const card=document.createElement("div");
   card.className="job";
+
   const h=document.createElement("h3");
   h.textContent=job.name;
+
   const p=document.createElement("p");
   p.textContent=job.category;
+
   const edit=document.createElement("button");
   edit.className="action";
   edit.textContent="Edit";
-  edit.onclick=()=>editJob(index);
+  edit.onclick=()=>editJob(job.id);
+
   const del=document.createElement("button");
   del.className="action danger";
   del.textContent="Delete";
-  del.onclick=()=>deleteJob(index);
+  del.onclick=()=>deleteJob(job.id);
+
   card.append(h,p,edit,del);
   list.appendChild(card);
  });
 }
 
-// EDIT
-function editJob(index){
- const job=jobs[index];
- editingIndex=index;
+// EDIT DATABASE OPPORTUNITY
+function editJob(id){
+ const job=databaseJobs.find(j=>String(j.id)===String(id));
+ if(!job)return;
+
+ editingId=job.id;
  document.getElementById("jobName").value=job.name;
  document.getElementById("jobCategory").value=job.category;
  document.getElementById("jobDescription").value=job.description;
  document.getElementById("jobLink").value=job.link;
  document.getElementById("formHeading").textContent="Edit Opportunity";
+ document.getElementById("saveButton").textContent="Update Opportunity";
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-// DELETE
-function deleteJob(index){
- if(!confirm("Are you sure you want to delete this opportunity?"))return;
- const removed=jobs[index].name;
- jobs.splice(index,1);
- favorites=favorites.filter(f=>f!==removed);
- saveLocalData();
- renderJobs();
- renderAdminJobs();
- renderFavorites();
+// DELETE DATABASE OPPORTUNITY
+async function deleteJob(id){
+ const job=databaseJobs.find(j=>String(j.id)===String(id));
+ if(!job)return;
+
+ if(!confirm("Are you sure you want to delete "+job.name+" from the online database?"))return;
+
+ try{
+  const {error}=await supabaseClient
+   .from("jobs")
+   .delete()
+   .eq("id",id);
+
+  if(error)throw error;
+
+  favorites=favorites.filter(f=>f!==job.name);
+  saveLocalData();
+
+  alert("Opportunity deleted from the online database.");
+  clearForm();
+  await loadDatabaseJobs();
+  renderFavorites();
+
+ }catch(error){
+  console.error(error);
+  alert("Could not delete opportunity: "+error.message);
+ }
 }
 
-// READ FROM SUPABASE
+// LOAD DATABASE OPPORTUNITIES
 async function loadDatabaseJobs(){
  const status=document.getElementById("connectionStatus");
 
- if (!window.supabase) {
-  status.textContent = "Supabase library did not load. Check your internet.";
+ if(!supabaseClient){
+  status.textContent="Supabase could not connect. Check your internet and settings.";
+  status.className="status error";
   renderJobs();
   return;
-}
-
-if (!supabaseClient) {
-  status.textContent = "Supabase client could not start. Check your publishable key.";
-  renderJobs();
-  return;
-}
+ }
 
  try{
   const {data,error}=await supabaseClient
@@ -424,18 +581,63 @@ if (!supabaseClient) {
 
   databaseJobs=data||[];
   status.textContent="Supabase connected. Database opportunities found: "+databaseJobs.length;
+  status.className="status";
+
   renderJobs();
+  renderFavorites();
+
+  if(currentUser && currentUser.id===ADMIN_USER_ID){
+   renderAdminJobs();
+  }
+
  }catch(error){
   console.error("Supabase error:",error);
-  status.textContent="Could not load database opportunities. Your saved opportunities are still available.";
+  status.textContent="Could not load database opportunities: "+error.message;
+  status.className="status error";
   renderJobs();
+ }
+}
+
+// CHECK EXISTING LOGIN SESSION
+async function checkAdminSession(){
+ if(!supabaseClient)return;
+
+ try{
+  const {data,error}=await supabaseClient.auth.getSession();
+  if(error)throw error;
+
+  const user=data.session?.user;
+
+  if(user && user.id===ADMIN_USER_ID){
+   currentUser=user;
+  }else{
+   currentUser=null;
+   if(user){
+    await supabaseClient.auth.signOut();
+   }
+  }
+
+  updateAdminDisplay();
+ }catch(error){
+  console.error("Session error:",error);
  }
 }
 
 // START APP
 renderJobs();
 renderFavorites();
-loadDatabaseJobs();
+
+if(supabaseClient){
+ checkAdminSession();
+ loadDatabaseJobs();
+
+ supabaseClient.auth.onAuthStateChange((event,session)=>{
+  if(event==="SIGNED_OUT"){
+   currentUser=null;
+   updateAdminDisplay();
+  }
+ });
+}
 
 if("serviceWorker" in navigator){
  window.addEventListener("load",()=>{
