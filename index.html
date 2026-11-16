@@ -618,7 +618,7 @@ async function loadDatabaseJobs(){
   if(error)throw error;
 
   databaseJobs=data||[];
-  status.textContent="Supabase connected. Database opportunities found: "+databaseJobs.length;
+status.textContent="Supabase connected. Database records: "+databaseJobs.length+" | Total opportunities: "+allJobs().length;
   status.className="status";
 
   renderJobs();
