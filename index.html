@@ -402,11 +402,17 @@ function deleteJob(index){
 async function loadDatabaseJobs(){
  const status=document.getElementById("connectionStatus");
 
- if(!supabaseClient){
-  status.textContent="Showing saved opportunities. Supabase key has not been added yet.";
+ if (!window.supabase) {
+  status.textContent = "Supabase library did not load. Check your internet.";
   renderJobs();
   return;
- }
+}
+
+if (!supabaseClient) {
+  status.textContent = "Supabase client could not start. Check your publishable key.";
+  renderJobs();
+  return;
+}
 
  try{
   const {data,error}=await supabaseClient
