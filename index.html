@@ -38,6 +38,8 @@ footer{text-align:center;padding:20px;color:#64748b;font-size:13px}
 hr{border:0;border-top:1px solid #d1e7dc;margin:20px 0}
 .status{padding:10px;background:#ecfdf5;border-radius:7px;font-size:13px;margin:10px 0}
 .error{background:#fee2e2;color:#991b1b}
+.about-card{background:white;border:1px solid #d1e7dc;border-radius:10px;padding:15px;margin:12px 0;line-height:1.6}
+.about-card h3{color:#047857;margin-top:0}
 </style>
 </head>
 
@@ -79,9 +81,41 @@ hr{border:0;border-top:1px solid #d1e7dc;margin:20px 0}
 
 <section id="about" class="section">
 <h2>About Daily Earning Finder</h2>
-<p>Daily Earning Finder helps people discover online earning websites and freelance opportunities.</p>
-<p>Our aim is to make it easier for beginners to explore work-from-home options.</p>
-<p><strong>Important:</strong> Always check a platform carefully before sharing personal information or paying any fee. We do not guarantee jobs or income.</p>
+
+<div class="about-card">
+<h3>Who We Are</h3>
+<p>Daily Earning Finder helps people discover online earning platforms, freelance marketplaces, remote work and microtask opportunities.</p>
+<p>Our mission is to help beginners explore genuine ways to earn online, including opportunities that may be available to people in Pakistan.</p>
+</div>
+
+<div class="about-card">
+<h3>Our Promise</h3>
+<ul>
+<li>We aim to share genuine platforms and their official website links.</li>
+<li>We encourage visitors to research every platform before joining.</li>
+<li>We do not charge visitors any registration or membership fees.</li>
+<li>We aim to make online earning information easier for beginners to understand.</li>
+</ul>
+</div>
+
+<div class="about-card">
+<h3>Important Safety Rules</h3>
+<ul>
+<li>Never share your password, OTP or banking PIN with anyone.</li>
+<li>Be careful of people promising guaranteed jobs or very high income.</li>
+<li>Do not pay unknown people to get a job or unlock promised earnings.</li>
+<li>Always use the official website of an earning platform.</li>
+<li>Check whether a platform accepts users from your country before registering.</li>
+</ul>
+</div>
+
+<div class="about-card">
+<h3>Disclaimer</h3>
+<p>Daily Earning Finder is an information platform. We are not an employer or a payment service.</p>
+<p>We do not guarantee jobs, tasks, acceptance, payments or income. Earnings depend on your skills, effort, location, eligibility and the availability of work on each platform.</p>
+<p>Third-party websites have their own rules, fees and payment policies. We are not responsible for their services, payments or disputes. Please read their terms carefully before using them.</p>
+<p><strong>Stay safe, research carefully and never pay to get a promised job.</strong></p>
+</div>
 </section>
 
 <section id="contact" class="section">
@@ -440,29 +474,27 @@ async function saveJob(){
  }
 
  const button=document.getElementById("saveButton");
+ const wasEditing=editingId!==null;
+ const savedEditingId=editingId;
+
  button.disabled=true;
  button.textContent="Saving...";
 
  try{
   const record={name,category,description,link};
-
   let result;
 
-  if(editingId===null){
+  if(!wasEditing){
    result=await supabaseClient.from("jobs").insert(record);
   }else{
    result=await supabaseClient.from("jobs")
     .update(record)
-    .eq("id",editingId);
+    .eq("id",savedEditingId);
   }
 
   if(result.error)throw result.error;
 
-  alert(editingId===null?
-   "Opportunity added successfully online!":
-   "Opportunity updated successfully online!");
-
-  const oldJob=databaseJobs.find(j=>String(j.id)===String(editingId));
+  const oldJob=databaseJobs.find(j=>String(j.id)===String(savedEditingId));
   if(oldJob && oldJob.name!==name){
    favorites=favorites.map(f=>f===oldJob.name?name:f);
    saveLocalData();
@@ -472,12 +504,16 @@ async function saveJob(){
   await loadDatabaseJobs();
   renderFavorites();
 
+  alert(wasEditing?
+   "Opportunity updated successfully online!":
+   "Opportunity added successfully online!");
+
  }catch(error){
   console.error(error);
   alert("Could not save opportunity: "+error.message);
  }finally{
   button.disabled=false;
-  button.textContent=editingId===null?"Save Opportunity":"Update Opportunity";
+  button.textContent="Save Opportunity";
  }
 }
 
