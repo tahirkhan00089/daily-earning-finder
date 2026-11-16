@@ -10,6 +10,9 @@
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#047857">
 
+<!-- SUPABASE LIBRARY -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 *{box-sizing:border-box}
 
@@ -248,7 +251,6 @@ a{overflow-wrap:anywhere}
  <button data-tab="admin">⚙️ Admin</button>
 </nav>
 
-<!-- JOBS SECTION -->
 <section id="jobsSection">
 
  <div class="panel">
@@ -272,24 +274,17 @@ a{overflow-wrap:anywhere}
  </div>
 
  <div id="jobList"></div>
-
 </section>
 
-<!-- FAVORITES SECTION -->
 <section id="favoritesSection" class="hidden">
-
  <div class="panel">
   <h2>❤️ My Favorite Opportunities</h2>
   <p class="small">Your saved opportunities appear here.</p>
  </div>
-
  <div id="favoriteList"></div>
-
 </section>
 
-<!-- ABOUT SECTION -->
 <section id="aboutSection" class="hidden">
-
  <div class="panel">
   <h2>About Daily Earning Finder</h2>
 
@@ -311,12 +306,9 @@ a{overflow-wrap:anywhere}
    before working.
   </div>
  </div>
-
 </section>
 
-<!-- CONTACT SECTION -->
 <section id="contactSection" class="hidden">
-
  <div class="panel">
   <h2>Contact Us</h2>
 
@@ -337,10 +329,8 @@ a{overflow-wrap:anywhere}
    💬 Contact on WhatsApp
   </a>
  </div>
-
 </section>
 
-<!-- ADMIN SECTION -->
 <section id="adminSection" class="hidden">
 
  <div class="panel" id="adminLogin">
@@ -365,7 +355,6 @@ a{overflow-wrap:anywhere}
 
   <div class="panel">
    <h2>Admin Dashboard</h2>
-
    <p>Manage your earning opportunities here.</p>
 
    <button class="secondary" onclick="logoutAdmin()">
@@ -374,7 +363,6 @@ a{overflow-wrap:anywhere}
   </div>
 
   <div class="panel">
-
    <h2 id="formHeading">Add New Opportunity</h2>
 
    <input id="jobName" placeholder="Website or job name">
@@ -408,7 +396,6 @@ a{overflow-wrap:anywhere}
     onclick="cancelEdit()">
     Cancel Edit
    </button>
-
   </div>
 
   <div class="panel">
@@ -417,7 +404,6 @@ a{overflow-wrap:anywhere}
   </div>
 
  </div>
-
 </section>
 
 </div>
@@ -427,6 +413,8 @@ a{overflow-wrap:anywhere}
 </footer>
 
 <script>
+
+// SUPABASE CONNECTION WILL BE ADDED IN THE NEXT STEP.
 
 // DEFAULT OPPORTUNITIES
 
@@ -641,25 +629,19 @@ function renderJobs(){
  filtered.forEach(job=>{
 
   const card = document.createElement("div");
-
   card.className = "job";
 
   const title = document.createElement("h3");
-
   title.textContent = job.name;
 
   const tag = document.createElement("span");
-
   tag.className = "tag";
-
   tag.textContent = job.category;
 
   const description = document.createElement("p");
-
   description.textContent = job.description;
 
   const status = document.createElement("div");
-
   status.className = "status";
 
   if(job.name.toLowerCase().includes("crowdgen")){
@@ -679,15 +661,10 @@ function renderJobs(){
   }
 
   const apply = document.createElement("a");
-
   apply.className = "apply";
-
   apply.textContent = "Apply Now →";
-
   apply.href = validLink(job.link) ? job.link : "#";
-
   apply.target = "_blank";
-
   apply.rel = "noopener noreferrer";
 
   if(!validLink(job.link)){
@@ -707,7 +684,6 @@ function renderJobs(){
   }
 
   const fav = document.createElement("button");
-
   fav.className = "favorite";
 
   fav.textContent =
@@ -728,22 +704,12 @@ function renderJobs(){
    }
 
    saveData();
-
    renderJobs();
-
    renderFavorites();
 
   };
 
-  card.append(
-   title,
-   tag,
-   description,
-   status,
-   apply,
-   fav
-  );
-
+  card.append(title,tag,description,status,apply,fav);
   list.appendChild(card);
 
  });
@@ -755,7 +721,6 @@ function renderJobs(){
 function renderFavorites(){
 
  const list = document.getElementById("favoriteList");
-
  list.innerHTML = "";
 
  const saved = jobs.filter(job=>
@@ -774,33 +739,23 @@ function renderFavorites(){
  saved.forEach(job=>{
 
   const card = document.createElement("div");
-
   card.className = "job";
 
   const title = document.createElement("h3");
-
   title.textContent = job.name;
 
   const description = document.createElement("p");
-
   description.textContent = job.description;
 
   const apply = document.createElement("a");
-
   apply.className = "apply";
-
   apply.textContent = "Apply Now →";
-
   apply.href = validLink(job.link) ? job.link : "#";
-
   apply.target = "_blank";
-
   apply.rel = "noopener noreferrer";
 
   const remove = document.createElement("button");
-
   remove.className = "favorite";
-
   remove.textContent = "Remove Favorite";
 
   remove.onclick = ()=>{
@@ -808,20 +763,12 @@ function renderFavorites(){
    favorites = favorites.filter(id=>id!==job.id);
 
    saveData();
-
    renderFavorites();
-
    renderJobs();
 
   };
 
-  card.append(
-   title,
-   description,
-   apply,
-   remove
-  );
-
+  card.append(title,description,apply,remove);
   list.appendChild(card);
 
  });
@@ -923,11 +870,8 @@ function saveJob(){
   if(job){
 
    job.name = name;
-
    job.category = category;
-
    job.description = description;
-
    job.link = link;
 
   }
@@ -937,13 +881,9 @@ function saveJob(){
   jobs.push({
 
    id:Date.now(),
-
    name:name,
-
    category:category,
-
    description:description,
-
    link:link
 
   });
@@ -951,11 +891,8 @@ function saveJob(){
  }
 
  saveData();
-
  cancelEdit();
-
  renderAdminJobs();
-
  renderJobs();
 
  alert("Opportunity saved successfully!");
@@ -975,12 +912,8 @@ function editJob(id){
  editingId = id;
 
  document.getElementById("jobName").value = job.name;
-
  document.getElementById("jobCategory").value = job.category;
-
- document.getElementById("jobDescription").value =
-  job.description;
-
+ document.getElementById("jobDescription").value = job.description;
  document.getElementById("jobLink").value = job.link;
 
  document.getElementById("formHeading").textContent =
@@ -1028,15 +961,11 @@ function deleteJob(id){
  )) return;
 
  jobs = jobs.filter(job=>job.id!==id);
-
  favorites = favorites.filter(favId=>favId!==id);
 
  saveData();
-
  renderAdminJobs();
-
  renderJobs();
-
  renderFavorites();
 
  alert("Opportunity deleted.");
@@ -1048,7 +977,6 @@ function deleteJob(id){
 function renderAdminJobs(){
 
  const list = document.getElementById("adminJobList");
-
  list.innerHTML = "";
 
  if(!adminLoggedIn) return;
@@ -1056,7 +984,6 @@ function renderAdminJobs(){
  if(jobs.length===0){
 
   list.innerHTML = "<p>No opportunities added yet.</p>";
-
   return;
 
  }
@@ -1064,42 +991,30 @@ function renderAdminJobs(){
  jobs.forEach(job=>{
 
   const card = document.createElement("div");
-
   card.className = "job";
 
   const title = document.createElement("h3");
-
   title.textContent = job.name;
 
   const description = document.createElement("p");
-
   description.textContent =
    job.category+" | "+job.description;
 
   const actions = document.createElement("div");
-
   actions.className = "admin-actions";
 
   const edit = document.createElement("button");
-
   edit.className = "edit";
-
   edit.textContent = "Edit";
-
   edit.onclick = ()=>editJob(job.id);
 
   const del = document.createElement("button");
-
   del.className = "delete";
-
   del.textContent = "Delete";
-
   del.onclick = ()=>deleteJob(job.id);
 
   actions.append(edit,del);
-
   card.append(title,description,actions);
-
   list.appendChild(card);
 
  });
@@ -1109,7 +1024,6 @@ function renderAdminJobs(){
 // START APP
 
 renderJobs();
-
 renderFavorites();
 
 </script>
