@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "daily-earning-finder-v3";
+const CACHE_NAME = "daily-earning-finder-v4";
 
 const FILES_TO_CACHE = [
   "./",
