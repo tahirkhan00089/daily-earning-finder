@@ -294,6 +294,28 @@ function showSection(id,button){
   renderAdminJobs();
  }
 }
+// SHARE APP
+async function shareApp(){
+ const shareData = {
+  title: "Daily Earning Finder",
+  text: "Discover online earning opportunities with Daily Earning Finder!",
+  url: window.location.href
+ };
+
+ try {
+  if(navigator.share){
+   await navigator.share(shareData);
+  } else {
+   await navigator.clipboard.writeText(shareData.url);
+   alert("App link copied! Share it with your friends.");
+  }
+ } catch(error) {
+  if(error.name !== "AbortError"){
+   alert("Unable to share. Please copy the app link manually.");
+  }
+ }
+}
+
 
 // COMBINE LOCAL AND DATABASE OPPORTUNITIES
 function allJobs(){
