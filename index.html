@@ -227,6 +227,7 @@ style="width:120px;height:120px;object-fit:contain;border-radius:15px;margin-bot
 </select>
 <textarea id="jobDescription" placeholder="Opportunity description"></textarea>
 <input id="jobLink" type="url" placeholder="Website link (https://...)">
+ <textarea id="countryAvailability" placeholder="Available countries (e.g. Worldwide, Pakistan, India, UAE)"></textarea>
 <button class="action" id="saveButton" onclick="saveJob()">Save Opportunity</button>
 <button class="action secondary" onclick="clearForm()">Clear</button>
 
@@ -320,19 +321,25 @@ async function shareApp(){
 // COMBINE LOCAL AND DATABASE OPPORTUNITIES
 function allJobs(){
  const combined=[...localJobs];
+
  databaseJobs.forEach(dbJob=>{
-  const exists=combined.some(j=>
+  const existingJob=combined.find(j=>
    j.name.toLowerCase()===String(dbJob.name).toLowerCase()
   );
-  if(!exists){
+
+  if(existingJob){
+   existingJob.country_availability=dbJob.country_availability;
+  }else{
    combined.push({
     name:dbJob.name,
     category:dbJob.category,
     description:dbJob.description,
-    link:dbJob.link
+    link:dbJob.link,
+    country_availability:dbJob.country_availability
    });
   }
  });
+
  return combined;
 }
 
@@ -368,7 +375,9 @@ function renderJobs(){
 
   const desc=document.createElement("p");
   desc.textContent=job.description;
-
+const country=document.createElement("p");
+country.textContent="Available countries: "+(job.country_availability||"Not specified");
+country.className="country";
   const link=document.createElement("a");
   link.href=job.link;
   link.target="_blank";
@@ -380,11 +389,10 @@ function renderJobs(){
   fav.textContent=isFav?"★ Saved":"☆ Favourite";
   fav.onclick=()=>toggleFavorite(job.name);
 
-  card.append(heading,tag,desc,link,document.createElement("br"),fav);
+card.append(heading,tag,desc,country,link,document.createElement("br"),fav);
   list.appendChild(card);
  });
 }
-
 // FAVOURITES
 function toggleFavorite(name){
  if(favorites.includes(name)){
@@ -529,6 +537,7 @@ function clearForm(){
  document.getElementById("jobCategory").value="Freelancing";
  document.getElementById("jobDescription").value="";
  document.getElementById("jobLink").value="";
+ document.getElementById("countryAvailability").value="";
  document.getElementById("formHeading").textContent="Add New Opportunity";
  document.getElementById("saveButton").textContent="Save Opportunity";
 }
@@ -544,6 +553,7 @@ async function saveJob(){
  const category=document.getElementById("jobCategory").value;
  const description=document.getElementById("jobDescription").value.trim();
  const link=document.getElementById("jobLink").value.trim();
+ const countryAvailability=document.getElementById("countryAvailability").value.trim();
 
  if(!name||!description||!link){
   alert("Please fill in all fields.");
@@ -579,7 +589,7 @@ async function saveJob(){
  button.textContent="Saving...";
 
  try{
-  const record={name,category,description,link};
+ const record={name,category,description,link,country_availability:countryAvailability};
   let result;
 
   if(!wasEditing){
@@ -660,6 +670,7 @@ function editJob(id){
  document.getElementById("jobCategory").value=job.category;
  document.getElementById("jobDescription").value=job.description;
  document.getElementById("jobLink").value=job.link;
+ document.getElementById("countryAvailability").value=job.country_availability||"";
  document.getElementById("formHeading").textContent="Edit Opportunity";
  document.getElementById("saveButton").textContent="Update Opportunity";
  window.scrollTo({top:0,behavior:"smooth"});
@@ -708,7 +719,7 @@ async function loadDatabaseJobs(){
  try{
   const {data,error}=await supabaseClient
    .from("jobs")
-   .select("id,name,category,description,link")
+   .select("id,name,category,description,link,country_availability")
    .order("id",{ascending:true});
 
   if(error)throw error;
