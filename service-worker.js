@@ -1,9 +1,6 @@
-
-const CACHE_NAME = "daily-earning-finder-v4";
+const CACHE_NAME = "daily-earning-finder-v5";
 
 const FILES_TO_CACHE = [
-  "./",
-  "./index.html",
   "./manifest.json",
   "./icon-192-1.png",
   "./icon-512.png"
@@ -22,8 +19,7 @@ self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
+        keys.filter(key => key !== CACHE_NAME)
           .map(key => caches.delete(key))
       )
     )
@@ -32,11 +28,35 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") return;
+  const request = event.request;
 
-  event.respondWith(
-    caches.match(event.request).then(cached =>
-      cached || fetch(event.request)
-    )
-  );
+  if (request.method !== "GET") return;
+
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request).then(response => {
+        if (response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache =>
+            cache.put(request, copy)
+          );
+        }
+        return response;
+      }).catch(async () => {
+        return await caches.match(request) ||
+          await caches.match("./index.html");
+      })
+    );
+    return;
+  }
+
+  const url = new URL(request.url);
+
+  if (url.origin === self.location.origin) {
+    event.respondWith(
+      caches.match(request).then(cached =>
+        cached || fetch(request)
+      )
+    );
+  }
 });
