@@ -1,1014 +1,212 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta name="google-adsense-account" content="ca-pub-8017852211146660">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily Earning Finder | Online Work and Freelancing Opportunities</title>
-<meta name="description" content="Explore online earning platforms, freelancing websites, microtask opportunities, creative work and practical beginner guides for people in Pakistan.">
+<title>Daily Earning Finder Pakistan | Freelancing, Remote Work & Online Skills</title>
+<meta name="description" content="A practical Pakistan-focused guide to freelancing, remote work, microtasks and free online skills. Compare platforms, understand requirements and learn how to avoid online job scams.">
+<meta name="robots" content="index,follow">
 <meta name="theme-color" content="#047857">
-
+<link rel="canonical" href="https://tahirkhan00089.github.io/daily-earning-finder/">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8017852211146660" crossorigin="anonymous"></script>
-
 <link rel="manifest" href="./manifest.json">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f0fdf4;color:#18352b}
-header{background:#047857;color:white;text-align:center;padding:22px 12px}
-header h1{margin:0 0 7px;font-size:25px}
-header p{margin:0;font-size:14px}
-nav{display:flex;flex-wrap:wrap;justify-content:center;background:#065f46;padding:7px;gap:5px}
-nav button{background:transparent;color:white;border:0;padding:11px 12px;border-radius:7px;font-weight:bold;cursor:pointer}
+body{margin:0;font-family:Arial,sans-serif;background:#f0fdf4;color:#18352b;line-height:1.65}
+header{background:#047857;color:white;text-align:center;padding:24px 14px}
+header img{width:100px;height:100px;object-fit:contain;border-radius:14px;margin-bottom:8px}
+header h1{margin:0 0 7px;font-size:27px}
+header p{margin:0;font-size:15px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;background:#065f46;padding:8px;gap:5px;position:sticky;top:0;z-index:5}
+nav button{background:transparent;color:white;border:0;padding:10px 11px;border-radius:7px;font-weight:bold;cursor:pointer}
 nav button.active,nav button:hover{background:#10b981}
-main{max-width:850px;margin:18px auto;padding:0 12px}
-.section{display:none}
-.section.active{display:block}
-h2{color:#047857}
-h3{line-height:1.35}
+main{max-width:950px;margin:20px auto;padding:0 13px}
+.section{display:none}.section.active{display:block}
+h2{color:#047857;line-height:1.3}h3{color:#047857}
 input,select,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #cbd5d1;border-radius:7px;font-size:15px}
 textarea{min-height:90px}
 button.action{background:#047857;color:white;border:0;padding:11px 15px;border-radius:7px;font-weight:bold;margin:5px 3px;cursor:pointer}
-button.secondary{background:#64748b}
-button.danger{background:#dc2626}
-button:disabled{opacity:.6;cursor:not-allowed}
-.job{background:white;border:1px solid #d1e7dc;border-radius:10px;padding:15px;margin:12px 0;box-shadow:0 2px 6px #0000000a}
-.job h3{margin:0 0 8px;color:#047857}
-.job p{line-height:1.5}
-.category{display:inline-block;background:#d1fae5;color:#065f46;padding:5px 9px;border-radius:20px;font-size:12px}
-a{color:#047857;font-weight:bold}
-.small{font-size:13px;color:#64748b}
-footer{text-align:center;padding:20px;color:#64748b;font-size:13px;line-height:1.8}
+button.secondary{background:#64748b}button.danger{background:#dc2626}button:disabled{opacity:.6;cursor:not-allowed}
+.job,.guide-card,.about-card{background:white;border:1px solid #d1e7dc;border-radius:10px;padding:16px;margin:13px 0;box-shadow:0 2px 6px #00000008}
+.job h3,.guide-card h3,.about-card h3{margin:0 0 8px;color:#047857}
+.job p,.guide-card p,.about-card p{line-height:1.65}
+.category{display:inline-block;background:#d1fae5;color:#065f46;padding:4px 9px;border-radius:20px;font-size:12px}
+a{color:#047857;font-weight:bold}.small{font-size:13px;color:#64748b}
+footer{text-align:center;padding:22px;color:#64748b;font-size:13px;line-height:1.9}
 hr{border:0;border-top:1px solid #d1e7dc;margin:20px 0}
 .status{padding:10px;background:#ecfdf5;border-radius:7px;font-size:13px;margin:10px 0}
 .error{background:#fee2e2;color:#991b1b}
-.about-card{background:white;border:1px solid #d1e7dc;border-radius:10px;padding:15px;margin:12px 0;line-height:1.7}
-.about-card h3{color:#047857;margin-top:18px}
-.about-card h3:first-child{margin-top:0}
-.about-card p{margin:10px 0}
-.about-card li{margin:8px 0}
-.intro-text{line-height:1.7}
+.notice{background:#ecfdf5;border-left:4px solid #10b981;padding:12px 14px;border-radius:6px;margin:12px 0}
+ul,ol{padding-left:22px}
+@media(max-width:600px){header h1{font-size:23px}nav button{padding:9px;font-size:13px}main{margin:14px auto}}
 </style>
 </head>
-
 <body>
-
 <header>
-<img src="logo.png" alt="Daily Earning Finder Logo" style="width:120px;height:120px;object-fit:contain;border-radius:15px;margin-bottom:10px;">
+<img src="logo.png" alt="Daily Earning Finder logo" onerror="this.style.display='none'">
 <h1>Daily Earning Finder</h1>
-<p>Discover Online Work, Freelancing and Learning Opportunities</p>
+<p>Practical guidance for online work, freelancing and digital skills in Pakistan</p>
 </header>
-
 <nav>
 <button class="active" onclick="showSection('jobs',this)">Home</button>
+<button onclick="showSection('guides',this)">Learning Guides</button>
+<button onclick="showSection('skills',this)">Free Skills</button>
 <button onclick="showSection('favorites',this)">Favourites</button>
 <button onclick="showSection('about',this)">About</button>
 <button onclick="showSection('contact',this)">Contact</button>
-<button onclick="showSection('privacy',this)">Privacy Policy</button>
+<button onclick="showSection('privacy',this)">Privacy</button>
 <button onclick="showSection('terms',this)">Terms</button>
 <button onclick="showSection('admin',this)">Admin</button>
 <button onclick="shareApp()">Share App</button>
 </nav>
-
 <main>
-
 <section id="jobs" class="section active">
-
-<h2>Find Online Earning Opportunities</h2>
-
-<p class="intro-text">
-Welcome to Daily Earning Finder. Explore freelancing websites, online task platforms, creative tools and writing opportunities. Our aim is to help beginners understand different types of online work and find official websites where they can research opportunities.
-</p>
-
-<input id="searchInput" type="search" placeholder="Search opportunities..." oninput="renderJobs()" aria-label="Search opportunities">
-
-<select id="categoryFilter" onchange="renderJobs()" aria-label="Filter opportunities by category">
-<option value="All">All Categories</option>
-<option>Freelancing</option>
-<option>Dollar Jobs</option>
-<option>Writing</option>
-<option>Design</option>
-<option>Microtasks</option>
+<h2>Find Online Work and Earning Platforms</h2>
+<p>Explore freelance marketplaces, writing and design platforms, and microtask services. Read each platform's eligibility, fees and payment rules before creating an account. Work availability can vary by country and by skill.</p>
+<div class="notice"><strong>Important:</strong> No website can guarantee income. Do not pay a stranger to get a job, and never share your password, OTP or banking PIN.</div>
+<input id="searchInput" type="search" placeholder="Search platforms or opportunity types..." oninput="renderJobs()">
+<select id="categoryFilter" onchange="renderJobs()">
+<option value="All">All Categories</option><option>Freelancing</option><option>Dollar Jobs</option><option>Writing</option><option>Design</option><option>Microtasks</option>
 </select>
-
 <div id="connectionStatus" class="status">Connecting to database...</div>
 <div id="jobList"></div>
-
-<div class="about-card">
-<h3>Understanding Online Work</h3>
-<p>Online work includes different activities that can be completed using a computer, tablet or smartphone with an internet connection. Examples include writing, graphic design, programming, translation, virtual assistance and small digital tasks.</p>
-<p>Each type of work requires different abilities. Some platforms connect freelancers with clients, while others publish tasks that users can complete according to their instructions. Learning about the work before registering can help you choose a suitable platform.</p>
-<p>Online work is not a guaranteed source of income. Finding clients, qualifying for tasks and receiving payments depend on your skills, experience, location and the rules of each platform.</p>
-</div>
-
-<div class="about-card">
-<h3>Freelancing: How It Works</h3>
-<p>Freelancing means providing services to clients without necessarily working as a permanent employee. A freelancer may work on individual projects or provide services to different clients.</p>
-<p>Common freelance services include:</p>
-<ul>
-<li>Article writing and proofreading</li>
-<li>Graphic design and social media posts</li>
-<li>Website development and programming</li>
-<li>Video editing and presentation design</li>
-<li>Translation and transcription</li>
-<li>Virtual assistance and administrative support</li>
-</ul>
-<p>A useful first step is to choose one service, practise it and create examples of your work. A portfolio can help potential clients understand your abilities.</p>
-</div>
-
-<div class="about-card">
-<h3>Freelancing Platforms</h3>
-
-<h3>Fiverr</h3>
-<p>Fiverr is a freelance marketplace where people can create service listings and offer their skills to potential clients. Services may include graphic design, writing, video editing and other professional work.</p>
-<p>Before creating a service listing, understand the category, prepare examples of your work and write a clear description of what you can deliver. Review the platform's current fees, eligibility and payment rules.</p>
-<p><a href="https://www.fiverr.com" target="_blank" rel="noopener noreferrer">Visit Fiverr's official website</a></p>
-
-<h3>Upwork</h3>
-<p>Upwork connects businesses and clients with freelancers offering different professional services. Users can explore projects, prepare proposals and build professional profiles.</p>
-<p>A useful profile should accurately explain your experience, skills and services. Read project requirements carefully and understand proposal costs, platform fees and payment conditions before applying.</p>
-<p><a href="https://www.upwork.com" target="_blank" rel="noopener noreferrer">Visit Upwork's official website</a></p>
-
-<h3>Freelancer</h3>
-<p>Freelancer is an online marketplace where clients can publish projects and freelancers can explore work in different categories. Projects may cover design, writing, programming and other services.</p>
-<p>Review the project description, client requirements and payment arrangements before accepting or bidding on any project.</p>
-<p><a href="https://www.freelancer.com" target="_blank" rel="noopener noreferrer">Visit Freelancer's official website</a></p>
-
-<h3>PeoplePerHour</h3>
-<p>PeoplePerHour connects businesses with freelancers offering professional services. Visitors can research available categories and learn how the platform's project and service processes work.</p>
-<p>Check current registration requirements, service fees and payment rules on the official website.</p>
-<p><a href="https://www.peopleperhour.com" target="_blank" rel="noopener noreferrer">Visit PeoplePerHour's official website</a></p>
-
-<h3>Guru</h3>
-<p>Guru is a freelance marketplace where users can explore projects and offer professional services. A clear profile and relevant examples can help clients understand the work you provide.</p>
-<p>Read the platform's membership, project, fee and payment information before using the service.</p>
-<p><a href="https://www.guru.com" target="_blank" rel="noopener noreferrer">Visit Guru's official website</a></p>
-
-<h3>Workana</h3>
-<p>Workana provides a marketplace for freelance projects and professional services. People interested in remote work can explore the categories and check whether registration and payments are supported in their location.</p>
-<p><a href="https://www.workana.com" target="_blank" rel="noopener noreferrer">Visit Workana's official website</a></p>
-
-</div>
-
-<div class="about-card">
-<h3>Microtasks and Small Online Tasks</h3>
-<p>Microtasks are relatively small online activities. Depending on the platform, tasks may involve reviewing information, categorising data, checking content or completing other digital activities.</p>
-<p>Task availability can change. Some platforms may have waiting lists, location restrictions, qualification tests or minimum withdrawal requirements. Always review the official rules before spending time on tasks.</p>
-
-<h3>Clickworker</h3>
-<p>Clickworker offers different types of online tasks. People interested in the service should check registration availability, task access, assessment requirements and payment conditions for their country.</p>
-<p>Do not assume that every task is available in every location. Confirm current details directly with Clickworker.</p>
-<p><a href="https://www.clickworker.com" target="_blank" rel="noopener noreferrer">Visit Clickworker's official website</a></p>
-
-<p><strong>Remember:</strong> Microtasks do not guarantee regular employment or a fixed income. The number of available tasks may vary.</p>
-</div>
-
-<div class="about-card">
-<h3>Design and Creative Opportunities</h3>
-<p>Creative work can include social media graphics, posters, presentations, logos, illustrations and other visual materials. People interested in design can begin by learning basic layout, typography, colour and image-editing principles.</p>
-
-<h3>Canva</h3>
-<p>Canva provides online tools for creating graphics, presentations and other visual content. Beginners can use design tools to practise and develop sample projects for a portfolio.</p>
-<p>Canva is a design tool, not a guarantee of paid work. If you plan to offer design services, check the applicable licensing rules for the assets you use.</p>
-<p><a href="https://www.canva.com" target="_blank" rel="noopener noreferrer">Visit Canva's official website</a></p>
-
-<h3>99designs</h3>
-<p>99designs focuses on creative design services and opportunities. People interested in the platform should review its designer requirements, participation rules and project process before applying.</p>
-<p><a href="https://99designs.com" target="_blank" rel="noopener noreferrer">Visit 99designs' official website</a></p>
-</div>
-
-<div class="about-card">
-<h3>Writing and Blogging Opportunities</h3>
-<p>Writing work can include articles, blog posts, editing, proofreading, website content and product descriptions. Clear communication, research and attention to detail are useful abilities for this type of work.</p>
-
-<h3>ProBlogger Jobs</h3>
-<p>ProBlogger provides a job board associated with blogging and content writing. Visitors can explore listings and review the requirements published by employers.</p>
-<p>Before applying, check the employer's details, assignment requirements, payment arrangements and application instructions.</p>
-<p><a href="https://problogger.com/jobs" target="_blank" rel="noopener noreferrer">Visit ProBlogger Jobs</a></p>
-
-<p>Writers can practise by preparing original sample articles on topics they understand. Proofreading and checking facts are important parts of producing useful content.</p>
-</div>
-
-<div class="about-card">
-<h3>Free Skills That Can Help Beginners</h3>
-<p>Learning a practical skill can help people prepare for online work. Beginners do not need to learn everything at once. Choosing one subject and practising consistently can make learning more manageable.</p>
-<ul>
-<li><strong>Writing:</strong> Practise clear paragraphs, grammar, research and proofreading.</li>
-<li><strong>Graphic design:</strong> Learn layout, typography, colour combinations and image composition.</li>
-<li><strong>Video editing:</strong> Practise cutting clips, arranging scenes and adding captions.</li>
-<li><strong>Web development:</strong> Learn HTML, CSS and JavaScript fundamentals.</li>
-<li><strong>Communication:</strong> Practise professional messages, client discussions and clear instructions.</li>
-</ul>
-<p>Use learning materials from trusted educational websites and practise with your own projects. Avoid courses that promise guaranteed jobs or unrealistic income.</p>
-</div>
-
-<div class="about-card">
-<h3>A Practical Starting Plan for Beginners in Pakistan</h3>
-<ol>
-<li><strong>Choose one skill.</strong> Start with something you are interested in and can practise regularly.</li>
-<li><strong>Learn the basics.</strong> Use free learning resources and complete small practice exercises.</li>
-<li><strong>Create examples.</strong> Prepare a few original samples that demonstrate what you can do.</li>
-<li><strong>Research platforms.</strong> Compare services and read their official requirements.</li>
-<li><strong>Check eligibility.</strong> Confirm age, country, identity verification and payment requirements.</li>
-<li><strong>Prepare an honest profile.</strong> Describe your real abilities and experience accurately.</li>
-<li><strong>Apply carefully.</strong> Read each project or task description before accepting work.</li>
-<li><strong>Keep records.</strong> Save important project details and payment information.</li>
-</ol>
-<p>Availability and payment methods can differ for people living in Pakistan. Always confirm the latest information directly with the platform.</p>
-</div>
-
-<div class="about-card">
-<h3>How to Recognise Online Job Scams</h3>
-<p>Not every online earning advertisement is genuine. Some scammers use fake job offers, impersonate companies or ask people to pay money before receiving work.</p>
-<ul>
-<li>Be careful of guaranteed high income for very little work.</li>
-<li>Do not pay unknown recruiters to obtain a promised job.</li>
-<li>Never share passwords, OTPs or banking PINs.</li>
-<li>Check website addresses carefully before signing in.</li>
-<li>Research a company independently before accepting an offer.</li>
-<li>Be cautious when strangers request identity documents or financial details.</li>
-<li>Do not install unknown applications sent by unverified people.</li>
-<li>Read payment conditions before completing tasks.</li>
-</ul>
-<p>If an offer seems suspicious, stop and verify it through the organisation's official website or support channel.</p>
-</div>
-
-<div class="about-card">
-<h3>Understanding Platform Fees and Payments</h3>
-<p>Online platforms may have different payment systems. Some charge service fees, while others have minimum withdrawal amounts, verification requirements or payment schedules.</p>
-<p>Before starting work, check:</p>
-<ul>
-<li>Whether the platform supports your country.</li>
-<li>Whether identity verification is required.</li>
-<li>What service or transaction fees apply.</li>
-<li>Which payment methods are currently supported.</li>
-<li>Whether a minimum balance is needed before withdrawal.</li>
-<li>How disputes and payment problems are handled.</li>
-</ul>
-<p>Never rely on an old payment screenshot or an unverified social media claim. Use the platform's current official documentation.</p>
-</div>
-
-<div class="about-card">
-<h3>Our Information and Research Approach</h3>
-<p>Daily Earning Finder is an independent information resource. We share descriptions and links to third-party websites so visitors can research services and opportunities directly.</p>
-<p>We do not employ visitors, control external platforms or decide who receives work. We cannot guarantee that a platform will accept an application or provide tasks to a particular user.</p>
-<p>Platform features, eligibility, fees and payment arrangements can change. We encourage visitors to verify current information on official websites before registering or applying.</p>
-<p>Some links may be affiliate links where applicable. If affiliate links are used, we aim to identify them clearly. An affiliate relationship does not guarantee that a product or service is suitable for every visitor.</p>
-</div>
-
 </section>
 
-<section id="favorites" class="section">
-<h2>My Favourite Opportunities</h2>
-<div id="favoriteList"></div>
+<section id="guides" class="section">
+<h2>Practical Online Work Guides</h2>
+<div class="guide-card">
+<h3>1. Understanding Online Work</h3>
+<p>Online work is paid work completed through the internet. It may include writing, graphic design, video editing, programming, virtual assistance, customer support, research or small digital tasks. Some opportunities are freelance projects, while others are remote jobs with an employer.</p>
+<p>Before applying, identify who pays you, what work is required, how payment is calculated, which countries are eligible and whether any fees apply. A genuine opportunity should explain its terms clearly.</p>
+</div>
+<div class="guide-card">
+<h3>2. How Freelancing Works</h3>
+<p>Freelancers provide a service to clients instead of working as permanent employees. A beginner can choose one service, practise it, prepare two or three sample projects and create a clear profile describing the service and delivery time.</p>
+<ol><li>Choose a skill that people or businesses need.</li><li>Learn the basics and practise with sample work.</li><li>Create a small portfolio that shows your actual ability.</li><li>Read marketplace rules and create an honest profile.</li><li>Apply only to suitable projects and agree on scope before starting.</li><li>Keep communication and payments within the platform when its rules require it.</li></ol>
+<p>Competition can be high. It may take time to receive a first order or project, and there is no guaranteed earning amount.</p>
+</div>
+<div class="guide-card">
+<h3>3. Freelance Marketplaces: What to Compare</h3>
+<p><strong>Fiverr:</strong> Sellers list services, often called gigs. Review its seller requirements, service rules and payment terms before publishing a gig.</p>
+<p><strong>Upwork:</strong> Clients post projects and freelancers submit proposals. Read the job description carefully and understand proposal and service fees.</p>
+<p><strong>Freelancer:</strong> Clients list projects and freelancers may bid. Check membership limits, project terms and payment protections.</p>
+<p><strong>PeoplePerHour and Guru:</strong> These marketplaces connect clients with freelancers. Compare the categories available, fees, verification steps and withdrawal options.</p>
+<p>Marketplace names are examples, not endorsements. Check each platform's current official terms and confirm that registration and withdrawals are available in your country.</p>
+</div>
+<div class="guide-card">
+<h3>4. Microtasks and Small Digital Tasks</h3>
+<p>Microtask services may offer short tasks such as data categorisation, surveys, content evaluation or basic research. Task supply can be irregular, and qualification tests may be required. Read task instructions carefully and never use automation or multiple accounts if the platform prohibits them.</p>
+<p>Clickworker is one example of a microtask platform. Its tasks, registration availability and payment methods can differ by location and time.</p>
+</div>
+<div class="guide-card">
+<h3>5. Writing and Design Work</h3>
+<p>Writing work may include articles, product descriptions, proofreading and website content. Design work may include social media graphics, presentations, logos and simple marketing materials. Build original samples and do not copy another creator's portfolio.</p>
+<p>For design practice, Canva provides beginner-friendly tools. For professional work, learn layout, typography, image licensing and how to follow a client's brief.</p>
+</div>
+<div class="guide-card">
+<h3>6. A Realistic 30-Day Beginner Plan</h3>
+<ul><li><strong>Week 1:</strong> Choose one skill and study beginner lessons for 30–60 minutes a day.</li><li><strong>Week 2:</strong> Practise and create two sample projects.</li><li><strong>Week 3:</strong> Improve the samples, prepare a short introduction and research suitable platforms.</li><li><strong>Week 4:</strong> Create a truthful profile and submit carefully selected applications or proposals.</li></ul>
+<p>Use this as a learning structure, not a promise of employment or income. Progress depends on practice, demand, eligibility and the quality of your work.</p>
+</div>
+<div class="guide-card">
+<h3>7. Payments, Fees and Eligibility</h3>
+<p>Before investing time in a platform, check its country list, age requirements, identity verification rules, service charges, minimum withdrawal amount, supported payment methods and processing times. Confirm that you can legally and practically receive payments in Pakistan. Never rely on an unofficial agent who asks for your login details.</p>
+</div>
+<div class="guide-card">
+<h3>8. How to Recognise Online Job Scams</h3>
+<ul><li>Be suspicious of guaranteed high income for little or no work.</li><li>Do not pay a registration, security or release fee to an unknown recruiter.</li><li>Do not share OTPs, passwords, card PINs or remote access to your phone.</li><li>Check the employer's official website and email domain independently.</li><li>Be cautious of requests to receive and forward money or packages.</li><li>Search for independent information and read the platform's own terms.</li></ul>
+</div>
 </section>
 
+<section id="skills" class="section">
+<h2>Free Resources to Build Useful Skills</h2>
+<p>Learning a practical skill can help you prepare for freelance projects or entry-level work. These resources provide learning tools; completing a course does not guarantee a job.</p>
+<div class="guide-card"><h3>Google Skillshop</h3><p>Explore training related to Google's advertising and analytics products.</p><a href="https://skillshop.withgoogle.com/" target="_blank" rel="noopener noreferrer">Visit Google Skillshop</a></div>
+<div class="guide-card"><h3>Canva Design School</h3><p>Learn design basics and practise creating presentations, social graphics and other visual materials.</p><a href="https://www.canva.com/designschool/" target="_blank" rel="noopener noreferrer">Visit Canva Design School</a></div>
+<div class="guide-card"><h3>freeCodeCamp</h3><p>Study web development and programming through structured lessons and practical exercises.</p><a href="https://www.freecodecamp.org/learn/" target="_blank" rel="noopener noreferrer">Visit freeCodeCamp</a></div>
+<div class="guide-card"><h3>Microsoft Learn</h3><p>Find learning paths for Microsoft technologies, productivity tools and technical skills.</p><a href="https://learn.microsoft.com/training/" target="_blank" rel="noopener noreferrer">Visit Microsoft Learn</a></div>
+<div class="guide-card"><h3>HubSpot Academy</h3><p>Explore courses about digital marketing, sales, content and customer service.</p><a href="https://academy.hubspot.com/" target="_blank" rel="noopener noreferrer">Visit HubSpot Academy</a></div>
+</section>
+
+<section id="favorites" class="section"><h2>My Favourite Opportunities</h2><div id="favoriteList"></div></section>
 <section id="about" class="section">
 <h2>About Daily Earning Finder</h2>
-
-<div class="about-card">
-<h3>Who We Are</h3>
-<p>Daily Earning Finder helps people discover online earning platforms, freelance marketplaces, remote work and microtask opportunities.</p>
-<p>Our mission is to help beginners explore online work information, understand different platforms and find official websites where they can research opportunities, including services that may be available to people in Pakistan.</p>
-</div>
-
-<div class="about-card">
-<h3>Our Promise</h3>
-<ul>
-<li>We aim to share genuine platforms and their official website links.</li>
-<li>We encourage visitors to research every platform before joining.</li>
-<li>We do not charge visitors any registration or membership fees.</li>
-<li>We aim to make online earning information easier for beginners to understand.</li>
-<li>We do not promise guaranteed jobs, tasks or income.</li>
-</ul>
-</div>
-
-<div class="about-card">
-<h3>Important Safety Rules</h3>
-<ul>
-<li>Never share your password, OTP or banking PIN with anyone.</li>
-<li>Be careful of people promising guaranteed jobs or very high income.</li>
-<li>Do not pay unknown people to get a job or unlock promised earnings.</li>
-<li>Always use the official website of an earning platform.</li>
-<li>Check whether a platform accepts users from your country before registering.</li>
-</ul>
-</div>
-
-<div class="about-card">
-<h3>Disclaimer</h3>
-<p>Daily Earning Finder is an information platform. We are not an employer or a payment service.</p>
-<p>We do not guarantee jobs, tasks, acceptance, payments or income. Earnings depend on your skills, effort, location, eligibility and the availability of work on each platform.</p>
-<p>Third-party websites have their own rules, fees and payment policies. We are not responsible for their services, payments or disputes. Please read their terms carefully before using them.</p>
-<p><strong>Stay safe, research carefully and never pay to get a promised job.</strong></p>
-</div>
+<div class="about-card"><h3>Who We Are</h3><p>Daily Earning Finder is an independent information website focused on helping visitors explore online work, freelancing, remote work, microtasks and digital skills, including information relevant to beginners in Pakistan.</p></div>
+<div class="about-card"><h3>Our Editorial Approach</h3><p>We aim to explain opportunities in clear language, link to official platform websites and encourage readers to verify current eligibility, fees and payment policies. Platform details may change, so visitors should confirm important information directly with the provider.</p></div>
+<div class="about-card"><h3>Important Safety Rules</h3><ul><li>Never share your password, OTP or banking PIN.</li><li>Be careful of guaranteed income claims.</li><li>Do not pay unknown people to obtain a promised job.</li><li>Use official websites and check country eligibility.</li><li>Read privacy policies and terms before registering.</li></ul></div>
+<div class="about-card"><h3>Disclaimer</h3><p>Daily Earning Finder is an information resource, not an employer, recruitment agency or payment service. We do not guarantee jobs, tasks, acceptance, payments or income. Earnings depend on skills, effort, location, eligibility and the availability of work. Third-party websites have their own rules, fees and payment policies, and we do not control their services.</p></div>
 </section>
-
-<section id="contact" class="section">
-<h2>Contact Us</h2>
-<div class="about-card">
-<p>We welcome questions, suggestions and reports about incorrect information or broken links.</p>
-<p>For questions or suggestions, contact us by email:</p>
-<p><a href="mailto:dailyearningfinder@gmail.com">dailyearningfinder@gmail.com</a></p>
-<p>When reporting an opportunity, please include its name and the official website address so we can identify the information you are referring to.</p>
-</div>
-</section>
-
+<section id="contact" class="section"><h2>Contact Us</h2><p>For questions, corrections or suggestions, contact:</p><p><a href="mailto:dailyearningfinder@gmail.com">dailyearningfinder@gmail.com</a></p></section>
 <section id="privacy" class="section">
-<h2>Privacy Policy</h2>
-
-<div class="about-card">
-
-<h3>1. Introduction</h3>
-<p>Welcome to Daily Earning Finder. We respect your privacy and explain how information may be handled when you visit our website or app.</p>
-
-<h3>2. Information for Visitors</h3>
-<p>You can browse Daily Earning Finder without creating an account. We do not ask ordinary visitors to submit their name, email address or phone number to use the website.</p>
-
-<h3>3. Favourites and Browser Storage</h3>
-<p>Your favourite opportunities are saved in your browser using local storage on your device. This helps the app remember your saved opportunities when you return.</p>
-<p>Clearing your browser's site data or storage may remove your saved favourites.</p>
-
-<h3>4. Cookies and Advertising</h3>
-<p>Daily Earning Finder uses Google AdSense to display advertisements. Google and its advertising partners may use cookies or similar technologies to show, measure and, where permitted, personalize advertisements based on visits to this website and other websites.</p>
-<p>Visitors can learn more about how Google uses information from websites that use its services here:</p>
-<p><a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">How Google uses information from sites or apps that use its services</a></p>
-<p>You can manage your Google advertising preferences here:</p>
-<p><a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">Google Ads Settings</a></p>
-
-<h3>5. Database and Administrator Account</h3>
-<p>We use Supabase to store and display earning opportunity information. Supabase Authentication is used for the administrator's login. Administrator account information is processed by Supabase to provide this service.</p>
-
-<h3>6. Website Hosting</h3>
-<p>This website is hosted using GitHub Pages. GitHub may process technical information when visitors access the website. Please refer to GitHub's own privacy policy for details about its data practices.</p>
-
-<h3>7. Third-Party Websites</h3>
-<p>Our website contains links to external earning platforms and other third-party websites. When you visit those websites, their own privacy policies and terms apply. We do not control how those websites collect or use information.</p>
-
-<h3>8. Children's Privacy</h3>
-<p>Our website is intended for people who are legally permitted to use the linked platforms. Visitors should check the age requirements of each external platform.</p>
-
-<h3>9. Changes to This Policy</h3>
-<p>We may update this Privacy Policy when our website features or practices change. Please check this page occasionally for updates.</p>
-
-<h3>10. Contact Us</h3>
-<p>For privacy questions, contact us at:</p>
-<p><a href="mailto:dailyearningfinder@gmail.com">dailyearningfinder@gmail.com</a></p>
-
-</div>
-</section>
-
+<h2>Privacy Policy</h2><div class="about-card">
+<h3>1. Introduction</h3><p>We respect visitors' privacy and explain how information may be handled when this website is used.</p>
+<h3>2. Visitor Information</h3><p>Visitors can browse the public sections without creating an account. The administrator login is restricted to site management.</p>
+<h3>3. Favourites and Browser Storage</h3><p>Favourite opportunities are stored locally in the visitor's browser. Clearing browser storage may remove saved favourites.</p>
+<h3>4. Advertising and Cookies</h3><p>This website may display Google AdSense advertisements. Google and its partners may use cookies or similar technologies for ad delivery, measurement and personalisation where permitted. Learn more at <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">Google's advertising technologies page</a> and manage preferences at <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>.</p>
+<h3>5. Database and Administrator Account</h3><p>Supabase is used to store opportunity information and provide administrator authentication. Administrator account information is processed to provide this function.</p>
+<h3>6. Hosting</h3><p>This website is hosted by GitHub Pages. Please review GitHub's privacy information for details about its services.</p>
+<h3>7. External Links</h3><p>External websites have their own privacy policies and terms. We do not control their data practices.</p>
+<h3>8. Changes and Contact</h3><p>This policy may be updated when website features or practices change. Questions can be sent to <a href="mailto:dailyearningfinder@gmail.com">dailyearningfinder@gmail.com</a>.</p>
+</div></section>
 <section id="terms" class="section">
-<h2>Terms &amp; Conditions</h2>
-
-<div class="about-card">
-
-<h3>1. Acceptance of Terms</h3>
-<p>By accessing or using Daily Earning Finder, you agree to these Terms &amp; Conditions. If you do not agree, please do not use the website.</p>
-
-<h3>2. Information Only</h3>
-<p>Daily Earning Finder is an information service that shares links and information about online earning opportunities. We are not an employer, recruitment agency or payment service.</p>
-
-<h3>3. No Income Guarantee</h3>
-<p>We do not guarantee jobs, tasks, acceptance, payments or income. Results depend on each platform, your eligibility, skills, location and the availability of work.</p>
-
-<h3>4. Third-Party Platforms</h3>
-<p>Each external platform has its own rules, eligibility requirements, fees and payment policies. You are responsible for reviewing those rules before signing up, applying for work or sharing personal information.</p>
-
-<h3>5. Accuracy of Information</h3>
-<p>We try to provide useful and accurate information, but platform details, links, availability and requirements can change. We cannot guarantee that all information is always complete or up to date.</p>
-
-<h3>6. Safe and Responsible Use</h3>
-<p>You agree not to misuse this website, attempt unauthorized access or interfere with its operation. Never share passwords, OTPs or banking PINs with unknown people.</p>
-
-<h3>7. External Links</h3>
-<p>Links to third-party websites are provided for convenience. We do not own or control those websites and are not responsible for their content, services, payments or disputes.</p>
-
-<h3>8. Changes to These Terms</h3>
-<p>We may update these Terms &amp; Conditions when necessary. Continued use of the website after changes means you accept the updated terms.</p>
-
-<h3>9. Contact</h3>
-<p>For questions about these terms, contact us at:</p>
-<p><a href="mailto:dailyearningfinder@gmail.com">dailyearningfinder@gmail.com</a></p>
-
-</div>
-</section>
+<h2>Terms &amp; Conditions</h2><div class="about-card">
+<h3>1. Information Service</h3><p>Daily Earning Finder provides general information and links about online work and learning resources. It is not an employer, recruitment agency or payment provider.</p>
+<h3>2. No Guarantee</h3><p>We do not guarantee jobs, tasks, acceptance, payments or income. Outcomes depend on individual circumstances and third-party platform decisions.</p>
+<h3>3. Third-Party Platforms</h3><p>Each provider sets its own eligibility rules, fees, payment methods and terms. Visitors should review those terms before registering or applying.</p>
+<h3>4. Accuracy</h3><p>We aim to provide useful information, but platform details and availability may change. Verify important details with the official provider.</p>
+<h3>5. Safe Use</h3><p>Do not misuse the website or attempt unauthorised access. Protect your passwords, OTPs and financial information.</p>
+<h3>6. Contact</h3><p>Questions can be sent to <a href="mailto:dailyearningfinder@gmail.com">dailyearningfinder@gmail.com</a>.</p>
+</div></section>
 
 <section id="admin" class="section">
-<h2>Admin Panel</h2>
-
-<div id="adminLogin">
-<p>Login with your registered administrator Gmail and password.</p>
-<input id="adminEmail" type="email" placeholder="Admin Gmail address" autocomplete="username">
-<input id="adminPassword" type="password" placeholder="Admin password" autocomplete="current-password">
-<button class="action" id="loginButton" onclick="adminLogin()">Login</button>
-<div id="loginStatus" class="status">Please log in to manage opportunities.</div>
-</div>
-
-<div id="adminPanel" style="display:none">
-<div class="status" id="adminWelcome">Admin authenticated.</div>
-<button class="action danger" onclick="adminLogout()">Logout</button>
-
-<hr>
-<h3 id="formHeading">Add New Opportunity</h3>
-<input id="jobName" placeholder="Opportunity name">
-
-<select id="jobCategory">
-<option>Freelancing</option>
-<option>Dollar Jobs</option>
-<option>Writing</option>
-<option>Design</option>
-<option>Microtasks</option>
-</select>
-
-<textarea id="jobDescription" placeholder="Opportunity description"></textarea>
-<input id="jobLink" type="url" placeholder="Website link (https://...)">
-<textarea id="countryAvailability" placeholder="Available countries (e.g. Worldwide, Pakistan, India, UAE)"></textarea>
-
-<button class="action" id="saveButton" onclick="saveJob()">Save Opportunity</button>
-<button class="action secondary" onclick="clearForm()">Clear</button>
-
-<hr>
-<h3>Manage Database Opportunities</h3>
-<p class="small">These opportunities are saved online in your Supabase database.</p>
-<div id="adminJobList"></div>
-</div>
+<h2>Admin Panel</h2><div id="adminLogin"><p>Log in with your registered administrator email and password.</p><input id="adminEmail" type="email" placeholder="Admin email" autocomplete="username"><input id="adminPassword" type="password" placeholder="Admin password" autocomplete="current-password"><button class="action" id="loginButton" onclick="adminLogin()">Login</button><div id="loginStatus" class="status">Please log in to manage opportunities.</div></div>
+<div id="adminPanel" style="display:none"><div class="status" id="adminWelcome">Admin authenticated.</div><button class="action danger" onclick="adminLogout()">Logout</button><hr><h3 id="formHeading">Add New Opportunity</h3><input id="jobName" placeholder="Opportunity name"><select id="jobCategory"><option>Freelancing</option><option>Dollar Jobs</option><option>Writing</option><option>Design</option><option>Microtasks</option></select><textarea id="jobDescription" placeholder="Opportunity description"></textarea><input id="jobLink" type="url" placeholder="Website link (https://...)"><textarea id="countryAvailability" placeholder="Available countries (e.g. Worldwide, Pakistan, UAE)"></textarea><button class="action" id="saveButton" onclick="saveJob()">Save Opportunity</button><button class="action secondary" onclick="clearForm()">Clear</button><hr><h3>Manage Database Opportunities</h3><div id="adminJobList"></div></div>
 </section>
-
 </main>
-
-<footer>
-© 2026 Daily Earning Finder | Pakistan
-<br><br>
-<a href="./privacy.html">Privacy Policy</a>
-|
-<a href="./terms.html">Terms &amp; Conditions</a>
-|
-<a href="mailto:dailyearningfinder@gmail.com">Contact Us</a>
-</footer>
+<footer>© 2026 Daily Earning Finder | Pakistan<br><a href="./privacy.html">Privacy Policy</a> | <a href="./terms.html">Terms &amp; Conditions</a> | <a href="mailto:dailyearningfinder@gmail.com">Contact Us</a></footer>
 
 <script>
-
-// SUPABASE SETTINGS
-const SUPABASE_URL = "https://pzvhuoxiljgqvxoqzeat.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_-0VP2OL4NDjn9nxm8u5sFQ_Ze2MJfCi";
-const ADMIN_USER_ID = "42bfb0ce-614e-4e95-bbf7-355db47b4b16";
-
-let supabaseClient = null;
-let databaseJobs = [];
-let editingId = null;
-let currentUser = null;
-
-if(window.supabase){
-supabaseClient = window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_PUBLISHABLE_KEY
-);
-}
-
-// DEFAULT OPPORTUNITIES
-const defaultJobs = [
-{name:"Fiverr",category:"Freelancing",description:"Offer writing, video editing, graphic design and other freelance services to clients.",link:"https://www.fiverr.com"},
-{name:"Upwork",category:"Dollar Jobs",description:"Find freelance projects and work with international clients.",link:"https://www.upwork.com"},
-{name:"Freelancer",category:"Freelancing",description:"Explore freelance projects in different categories.",link:"https://www.freelancer.com"},
-{name:"Clickworker",category:"Microtasks",description:"Explore online microtasks and small digital jobs. Availability varies by country.",link:"https://www.clickworker.com"},
-{name:"Canva",category:"Design",description:"Create designs and build graphic design skills for freelance work.",link:"https://www.canva.com"},
-{name:"PeoplePerHour",category:"Freelancing",description:"Find freelance work and offer services to clients.",link:"https://www.peopleperhour.com"},
-{name:"Guru",category:"Freelancing",description:"Create a freelancer profile and explore available projects.",link:"https://www.guru.com"},
-{name:"Workana",category:"Freelancing",description:"Explore remote freelance projects and professional services.",link:"https://www.workana.com"},
-{name:"ProBlogger Jobs",category:"Writing",description:"Explore writing and blogging job listings.",link:"https://problogger.com/jobs"},
-{name:"99designs",category:"Design",description:"Explore graphic design projects and creative opportunities.",link:"https://99designs.com"}
+const SUPABASE_URL="https://pzvhuoxiljgqvxoqzeat.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_-0VP2OL4NDjn9nxm8u5sFQ_Ze2MJfCi";
+const ADMIN_USER_ID="42bfb0ce-614e-4e95-bbf7-355db47b4b16";
+let supabaseClient=null,databaseJobs=[],editingId=null,currentUser=null;
+if(window.supabase){supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);}
+const defaultJobs=[
+{name:"Fiverr",category:"Freelancing",description:"Offer services such as writing, video editing, translation or graphic design. Review seller rules and fees.",link:"https://www.fiverr.com"},
+{name:"Upwork",category:"Dollar Jobs",description:"Explore freelance projects and submit proposals to clients. Check proposal costs, service fees and eligibility.",link:"https://www.upwork.com"},
+{name:"Freelancer",category:"Freelancing",description:"Explore projects in different categories and review bidding and membership terms.",link:"https://www.freelancer.com"},
+{name:"Clickworker",category:"Microtasks",description:"Explore digital microtasks. Task supply, registration and payment options vary by country.",link:"https://www.clickworker.com"},
+{name:"Canva",category:"Design",description:"Practise visual design and create portfolio samples using online design tools.",link:"https://www.canva.com"},
+{name:"PeoplePerHour",category:"Freelancing",description:"Explore freelance services and projects. Review fees and country eligibility.",link:"https://www.peopleperhour.com"},
+{name:"Guru",category:"Freelancing",description:"Create a professional profile and explore available freelance projects.",link:"https://www.guru.com"},
+{name:"Workana",category:"Freelancing",description:"Explore remote freelance projects and service categories. Check regional availability.",link:"https://www.workana.com"},
+{name:"ProBlogger Jobs",category:"Writing",description:"Explore writing and blogging job listings and verify each employer before applying.",link:"https://problogger.com/jobs"},
+{name:"99designs",category:"Design",description:"Explore creative design opportunities and review platform participation requirements.",link:"https://99designs.com"}
 ];
-
-// KEEP EXISTING LOCAL OPPORTUNITIES
-let localJobs = JSON.parse(localStorage.getItem("myJobs")) || defaultJobs;
-let favorites = JSON.parse(localStorage.getItem("myFavorites")) ||
-JSON.parse(localStorage.getItem("favorites")) || [];
-
-function saveLocalData(){
-localStorage.setItem("myJobs",JSON.stringify(localJobs));
-localStorage.setItem("myFavorites",JSON.stringify(favorites));
-}
-
-// NAVIGATION
-function showSection(id,button){
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
-if(button)button.classList.add("active");
-
-if(id==="favorites")renderFavorites();
-
-if(id==="admin" && currentUser && currentUser.id===ADMIN_USER_ID){
-renderAdminJobs();
-}
-}
-
-// SHARE APP
-async function shareApp(){
-const shareData = {
-title:"Daily Earning Finder",
-text:"Discover online earning opportunities with Daily Earning Finder!",
-url:window.location.href
-};
-
-try{
-if(navigator.share){
-await navigator.share(shareData);
-}else{
-await navigator.clipboard.writeText(shareData.url);
-alert("App link copied! Share it with your friends.");
-}
-}catch(error){
-if(error.name!=="AbortError"){
-alert("Unable to share. Please copy the app link manually.");
-}
-}
-}
-
-// COMBINE LOCAL AND DATABASE OPPORTUNITIES
-function allJobs(){
-const combined=[...localJobs];
-
-databaseJobs.forEach(dbJob=>{
-const existingJob=combined.find(j=>
-j.name.toLowerCase()===String(dbJob.name).toLowerCase()
-);
-
-if(existingJob){
-existingJob.country_availability=dbJob.country_availability;
-}else{
-combined.push({
-name:dbJob.name,
-category:dbJob.category,
-description:dbJob.description,
-link:dbJob.link,
-country_availability:dbJob.country_availability
-});
-}
-});
-
-return combined;
-}
-
-// DISPLAY OPPORTUNITIES
-function renderJobs(){
-const list=document.getElementById("jobList");
-const search=document.getElementById("searchInput").value.toLowerCase();
-const category=document.getElementById("categoryFilter").value;
-
-const filtered=allJobs().filter(job=>{
-const matchesSearch=(job.name+" "+job.description+" "+job.category).toLowerCase().includes(search);
-const matchesCategory=category==="All"||job.category===category;
-return matchesSearch&&matchesCategory;
-});
-
-list.innerHTML="";
-
-if(filtered.length===0){
-list.innerHTML="<p>No opportunities found.</p>";
-return;
-}
-
-filtered.forEach(job=>{
-const isFav=favorites.includes(job.name);
-const card=document.createElement("div");
-card.className="job";
-
-const heading=document.createElement("h3");
-heading.textContent=job.name;
-
-const tag=document.createElement("span");
-tag.className="category";
-tag.textContent=job.category;
-
-const desc=document.createElement("p");
-desc.textContent=job.description;
-
-const country=document.createElement("p");
-country.textContent="Available countries: "+(job.country_availability||"Not specified");
-country.className="country";
-
-const link=document.createElement("a");
-link.href=job.link;
-link.target="_blank";
-link.rel="noopener noreferrer";
-link.textContent="Visit Website";
-
-const fav=document.createElement("button");
-fav.className="action secondary";
-fav.textContent=isFav?"★ Saved":"☆ Favourite";
-fav.onclick=()=>toggleFavorite(job.name);
-
-card.append(heading,tag,desc,country,link,document.createElement("br"),fav);
-list.appendChild(card);
-});
-}
-
-// FAVOURITES
-function toggleFavorite(name){
-if(favorites.includes(name)){
-favorites=favorites.filter(x=>x!==name);
-}else{
-favorites.push(name);
-}
-
-saveLocalData();
-renderJobs();
-renderFavorites();
-}
-
-function renderFavorites(){
-const list=document.getElementById("favoriteList");
-list.innerHTML="";
-
-const favJobs=allJobs().filter(j=>favorites.includes(j.name));
-
-if(favJobs.length===0){
-list.innerHTML="<p>You have not saved any favourites yet.</p>";
-return;
-}
-
-favJobs.forEach(job=>{
-const card=document.createElement("div");
-card.className="job";
-
-const h=document.createElement("h3");
-h.textContent=job.name;
-
-const p=document.createElement("p");
-p.textContent=job.description;
-
-const a=document.createElement("a");
-a.href=job.link;
-a.target="_blank";
-a.rel="noopener noreferrer";
-a.textContent="Visit Website";
-
-const btn=document.createElement("button");
-btn.className="action danger";
-btn.textContent="Remove Favourite";
-btn.onclick=()=>toggleFavorite(job.name);
-
-card.append(h,p,a,document.createElement("br"),btn);
-list.appendChild(card);
-});
-}
-
-// UPDATE ADMIN DISPLAY
-function updateAdminDisplay(){
-const isAdmin=!!currentUser && currentUser.id===ADMIN_USER_ID;
-
-document.getElementById("adminLogin").style.display=isAdmin?"none":"block";
-document.getElementById("adminPanel").style.display=isAdmin?"block":"none";
-
-if(isAdmin){
-document.getElementById("adminWelcome").textContent="Logged in as "+currentUser.email;
-renderAdminJobs();
-}else{
-document.getElementById("adminEmail").value="";
-document.getElementById("adminPassword").value="";
-}
-}
-
-// ADMIN LOGIN WITH SUPABASE
-async function adminLogin(){
-if(!supabaseClient){
-alert("Supabase connection is not available.");
-return;
-}
-
-const email=document.getElementById("adminEmail").value.trim();
-const password=document.getElementById("adminPassword").value;
-const status=document.getElementById("loginStatus");
-const button=document.getElementById("loginButton");
-
-if(!email||!password){
-status.textContent="Please enter your Gmail and password.";
-status.className="status error";
-return;
-}
-
-button.disabled=true;
-button.textContent="Logging in...";
-status.textContent="Checking your account...";
-status.className="status";
-
-try{
-const {data,error}=await supabaseClient.auth.signInWithPassword({
-email:email,
-password:password
-});
-
-if(error)throw error;
-
-if(!data.user || data.user.id!==ADMIN_USER_ID){
-await supabaseClient.auth.signOut();
-currentUser=null;
-updateAdminDisplay();
-status.textContent="This account is not authorized as the administrator.";
-status.className="status error";
-return;
-}
-
-currentUser=data.user;
-updateAdminDisplay();
-await loadDatabaseJobs();
-status.textContent="Admin login successful.";
-status.className="status";
-
-}catch(error){
-status.textContent="Login failed: "+error.message;
-status.className="status error";
-
-}finally{
-button.disabled=false;
-button.textContent="Login";
-}
-}
-
-// ADMIN LOGOUT
-async function adminLogout(){
-if(!supabaseClient)return;
-
-const {error}=await supabaseClient.auth.signOut();
-
-if(error){
-alert("Logout failed: "+error.message);
-return;
-}
-
-currentUser=null;
-clearForm();
-updateAdminDisplay();
-document.getElementById("loginStatus").textContent="You have logged out.";
-document.getElementById("loginStatus").className="status";
-}
-
-// CLEAR ADMIN FORM
-function clearForm(){
-editingId=null;
-document.getElementById("jobName").value="";
-document.getElementById("jobCategory").value="Freelancing";
-document.getElementById("jobDescription").value="";
-document.getElementById("jobLink").value="";
-document.getElementById("countryAvailability").value="";
-document.getElementById("formHeading").textContent="Add New Opportunity";
-document.getElementById("saveButton").textContent="Save Opportunity";
-}
-
-// ADD OR EDIT OPPORTUNITY ONLINE
-async function saveJob(){
-if(!currentUser || currentUser.id!==ADMIN_USER_ID){
-alert("Please log in with your administrator account.");
-return;
-}
-
-const name=document.getElementById("jobName").value.trim();
-const category=document.getElementById("jobCategory").value;
-const description=document.getElementById("jobDescription").value.trim();
-const link=document.getElementById("jobLink").value.trim();
-const countryAvailability=document.getElementById("countryAvailability").value.trim();
-
-if(!name||!description||!link){
-alert("Please fill in all fields.");
-return;
-}
-
-try{
-const parsed=new URL(link);
-
-if(parsed.protocol!=="https:"&&parsed.protocol!=="http:"){
-alert("Please enter a valid website link.");
-return;
-}
-
-}catch(e){
-alert("Please enter a valid website link starting with https://");
-return;
-}
-
-const duplicate=databaseJobs.some(j=>
-j.name.toLowerCase()===name.toLowerCase() &&
-String(j.id)!==String(editingId)
-);
-
-if(duplicate){
-alert("An opportunity with this name already exists in the database.");
-return;
-}
-
-const button=document.getElementById("saveButton");
-const wasEditing=editingId!==null;
-const savedEditingId=editingId;
-
-button.disabled=true;
-button.textContent="Saving...";
-
-try{
-const record={name,category,description,link,country_availability:countryAvailability};
-let result;
-
-if(!wasEditing){
-result=await supabaseClient.from("jobs").insert(record);
-}else{
-result=await supabaseClient.from("jobs").update(record).eq("id",savedEditingId);
-}
-
-if(result.error)throw result.error;
-
-const oldJob=databaseJobs.find(j=>String(j.id)===String(savedEditingId));
-
-if(oldJob && oldJob.name!==name){
-favorites=favorites.map(f=>f===oldJob.name?name:f);
-saveLocalData();
-}
-
-clearForm();
-await loadDatabaseJobs();
-renderFavorites();
-
-alert(wasEditing?
-"Opportunity updated successfully online!":
-"Opportunity added successfully online!");
-
-}catch(error){
-console.error(error);
-alert("Could not save opportunity: "+error.message);
-
-}finally{
-button.disabled=false;
-button.textContent="Save Opportunity";
-}
-}
-
-// ADMIN DATABASE LIST
-function renderAdminJobs(){
-const list=document.getElementById("adminJobList");
-list.innerHTML="";
-
-if(databaseJobs.length===0){
-list.innerHTML="<p>No database opportunities found.</p>";
-return;
-}
-
-databaseJobs.forEach(job=>{
-const card=document.createElement("div");
-card.className="job";
-
-const h=document.createElement("h3");
-h.textContent=job.name;
-
-const p=document.createElement("p");
-p.textContent=job.category;
-
-const edit=document.createElement("button");
-edit.className="action";
-edit.textContent="Edit";
-edit.onclick=()=>editJob(job.id);
-
-const del=document.createElement("button");
-del.className="action danger";
-del.textContent="Delete";
-del.onclick=()=>deleteJob(job.id);
-
-card.append(h,p,edit,del);
-list.appendChild(card);
-});
-}
-
-// EDIT DATABASE OPPORTUNITY
-function editJob(id){
-const job=databaseJobs.find(j=>String(j.id)===String(id));
-if(!job)return;
-
-editingId=job.id;
-document.getElementById("jobName").value=job.name;
-document.getElementById("jobCategory").value=job.category;
-document.getElementById("jobDescription").value=job.description;
-document.getElementById("jobLink").value=job.link;
-document.getElementById("countryAvailability").value=job.country_availability||"";
-document.getElementById("formHeading").textContent="Edit Opportunity";
-document.getElementById("saveButton").textContent="Update Opportunity";
-window.scrollTo({top:0,behavior:"smooth"});
-}
-
-// DELETE DATABASE OPPORTUNITY
-async function deleteJob(id){
-const job=databaseJobs.find(j=>String(j.id)===String(id));
-if(!job)return;
-
-if(!confirm("Are you sure you want to delete "+job.name+" from the online database?"))return;
-
-try{
-const {error}=await supabaseClient.from("jobs").delete().eq("id",id);
-
-if(error)throw error;
-
-favorites=favorites.filter(f=>f!==job.name);
-saveLocalData();
-
-alert("Opportunity deleted from the online database.");
-clearForm();
-await loadDatabaseJobs();
-renderFavorites();
-
-}catch(error){
-console.error(error);
-alert("Could not delete opportunity: "+error.message);
-}
-}
-
-// LOAD DATABASE OPPORTUNITIES
-async function loadDatabaseJobs(){
-const status=document.getElementById("connectionStatus");
-
-if(!supabaseClient){
-status.textContent="Supabase could not connect. Check your internet and settings.";
-status.className="status error";
-renderJobs();
-return;
-}
-
-try{
-const {data,error}=await supabaseClient
-.from("jobs")
-.select("id,name,category,description,link,country_availability")
-.order("id",{ascending:true});
-
-if(error)throw error;
-
-databaseJobs=data||[];
-
-status.textContent="Supabase connected. Database records: "+databaseJobs.length+" | Total opportunities: "+allJobs().length;
-status.className="status";
-
-renderJobs();
-renderFavorites();
-
-if(currentUser && currentUser.id===ADMIN_USER_ID){
-renderAdminJobs();
-}
-
-}catch(error){
-console.error("Supabase error:",error);
-status.textContent="Could not load database opportunities: "+error.message;
-status.className="status error";
-renderJobs();
-}
-}
-
-// CHECK EXISTING LOGIN SESSION
-async function checkAdminSession(){
-if(!supabaseClient)return;
-
-try{
-const {data,error}=await supabaseClient.auth.getSession();
-if(error)throw error;
-
-const user=data.session?.user;
-
-if(user && user.id===ADMIN_USER_ID){
-currentUser=user;
-}else{
-currentUser=null;
-if(user){
-await supabaseClient.auth.signOut();
-}
-}
-
-updateAdminDisplay();
-
-}catch(error){
-console.error("Session error:",error);
-}
-}
-
-// START APP
-renderJobs();
-renderFavorites();
-
-if(supabaseClient){
-checkAdminSession();
-loadDatabaseJobs();
-
-supabaseClient.auth.onAuthStateChange((event,session)=>{
-if(event==="SIGNED_OUT"){
-currentUser=null;
-updateAdminDisplay();
-}
-});
-}
-
-if("serviceWorker" in navigator){
-window.addEventListener("load",()=>{
-navigator.serviceWorker.register("./service-worker.js")
-.catch(error=>console.log("Service worker:",error));
-});
-}
-
+let localJobs=JSON.parse(localStorage.getItem("myJobs"))||defaultJobs;
+let favorites=JSON.parse(localStorage.getItem("myFavorites"))||JSON.parse(localStorage.getItem("favorites"))||[];
+function saveLocalData(){localStorage.setItem("myJobs",JSON.stringify(localJobs));localStorage.setItem("myFavorites",JSON.stringify(favorites));}
+function showSection(id,button){document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));if(button)button.classList.add("active");if(id==="favorites")renderFavorites();if(id==="admin"&&currentUser&&currentUser.id===ADMIN_USER_ID)renderAdminJobs();window.scrollTo({top:0,behavior:"smooth"});}
+async function shareApp(){const data={title:"Daily Earning Finder",text:"Explore online work and digital skills with Daily Earning Finder.",url:window.location.href};try{if(navigator.share)await navigator.share(data);else{await navigator.clipboard.writeText(data.url);alert("App link copied.");}}catch(e){if(e.name!=="AbortError")alert("Please copy the website link manually.");}}
+function allJobs(){const combined=[...localJobs];databaseJobs.forEach(d=>{const old=combined.find(j=>j.name.toLowerCase()===String(d.name).toLowerCase());if(old){old.country_availability=d.country_availability;}else combined.push({name:d.name,category:d.category,description:d.description,link:d.link,country_availability:d.country_availability});});return combined;}
+function renderJobs(){const list=document.getElementById("jobList");if(!list)return;const search=document.getElementById("searchInput").value.toLowerCase();const category=document.getElementById("categoryFilter").value;const filtered=allJobs().filter(j=>(j.name+" "+j.description+" "+j.category).toLowerCase().includes(search)&&(category==="All"||j.category===category));list.innerHTML="";if(!filtered.length){list.innerHTML="<p>No opportunities found. Try another search or category.</p>";return;}filtered.forEach(job=>{const card=document.createElement("div");card.className="job";const h=document.createElement("h3");h.textContent=job.name;const tag=document.createElement("span");tag.className="category";tag.textContent=job.category;const p=document.createElement("p");p.textContent=job.description;const country=document.createElement("p");country.className="small";country.textContent="Country availability: "+(job.country_availability||"Check the official platform");const a=document.createElement("a");a.href=job.link;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Visit Official Website";const fav=document.createElement("button");fav.className="action secondary";fav.textContent=favorites.includes(job.name)?"★ Saved":"☆ Add to Favourites";fav.onclick=()=>toggleFavorite(job.name);card.append(h,tag,p,country,a,document.createElement("br"),fav);list.appendChild(card);});}
+function toggleFavorite(name){favorites=favorites.includes(name)?favorites.filter(x=>x!==name):[...favorites,name];saveLocalData();renderJobs();renderFavorites();}
+function renderFavorites(){const list=document.getElementById("favoriteList");if(!list)return;list.innerHTML="";const items=allJobs().filter(j=>favorites.includes(j.name));if(!items.length){list.innerHTML="<p>You have not saved any favourites yet.</p>";return;}items.forEach(j=>{const card=document.createElement("div");card.className="job";const h=document.createElement("h3");h.textContent=j.name;const p=document.createElement("p");p.textContent=j.description;const a=document.createElement("a");a.href=j.link;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Visit Official Website";const b=document.createElement("button");b.className="action danger";b.textContent="Remove Favourite";b.onclick=()=>toggleFavorite(j.name);card.append(h,p,a,document.createElement("br"),b);list.appendChild(card);});}
+function updateAdminDisplay(){const yes=!!currentUser&&currentUser.id===ADMIN_USER_ID;document.getElementById("adminLogin").style.display=yes?"none":"block";document.getElementById("adminPanel").style.display=yes?"block":"none";if(yes){document.getElementById("adminWelcome").textContent="Logged in as "+currentUser.email;renderAdminJobs();}else{document.getElementById("adminEmail").value="";document.getElementById("adminPassword").value="";}}
+async function adminLogin(){if(!supabaseClient){alert("Database connection is unavailable.");return;}const email=document.getElementById("adminEmail").value.trim(),password=document.getElementById("adminPassword").value,status=document.getElementById("loginStatus"),button=document.getElementById("loginButton");if(!email||!password){status.textContent="Enter your email and password.";status.className="status error";return;}button.disabled=true;button.textContent="Logging in...";try{const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;if(!data.user||data.user.id!==ADMIN_USER_ID){await supabaseClient.auth.signOut();currentUser=null;updateAdminDisplay();status.textContent="This account is not authorised as administrator.";status.className="status error";return;}currentUser=data.user;updateAdminDisplay();await loadDatabaseJobs();status.textContent="Login successful.";status.className="status";}catch(e){status.textContent="Login failed: "+e.message;status.className="status error";}finally{button.disabled=false;button.textContent="Login";}}
+async function adminLogout(){if(!supabaseClient)return;const {error}=await supabaseClient.auth.signOut();if(error){alert("Logout failed: "+error.message);return;}currentUser=null;clearForm();updateAdminDisplay();document.getElementById("loginStatus").textContent="You have logged out.";}
+function clearForm(){editingId=null;document.getElementById("jobName").value="";document.getElementById("jobCategory").value="Freelancing";document.getElementById("jobDescription").value="";document.getElementById("jobLink").value="";document.getElementById("countryAvailability").value="";document.getElementById("formHeading").textContent="Add New Opportunity";document.getElementById("saveButton").textContent="Save Opportunity";}
+async function saveJob(){if(!currentUser||currentUser.id!==ADMIN_USER_ID){alert("Please log in as administrator.");return;}const name=document.getElementById("jobName").value.trim(),category=document.getElementById("jobCategory").value,description=document.getElementById("jobDescription").value.trim(),link=document.getElementById("jobLink").value.trim(),country=document.getElementById("countryAvailability").value.trim();if(!name||!description||!link){alert("Please complete the name, description and website link.");return;}try{const u=new URL(link);if(!["https:","http:"].includes(u.protocol))throw new Error();}catch(e){alert("Enter a valid website link beginning with https://");return;}if(databaseJobs.some(j=>j.name.toLowerCase()===name.toLowerCase()&&String(j.id)!==String(editingId))){alert("An opportunity with this name already exists.");return;}const button=document.getElementById("saveButton"),wasEditing=editingId!==null,savedId=editingId;button.disabled=true;button.textContent="Saving...";try{const record={name,category,description,link,country_availability:country};const result=wasEditing?await supabaseClient.from("jobs").update(record).eq("id",savedId):await supabaseClient.from("jobs").insert(record);if(result.error)throw result.error;const old=databaseJobs.find(j=>String(j.id)===String(savedId));if(old&&old.name!==name){favorites=favorites.map(x=>x===old.name?name:x);saveLocalData();}clearForm();await loadDatabaseJobs();alert(wasEditing?"Opportunity updated.":"Opportunity added.");}catch(e){alert("Could not save opportunity: "+e.message);}finally{button.disabled=false;button.textContent="Save Opportunity";}}
+function renderAdminJobs(){const list=document.getElementById("adminJobList");if(!list)return;list.innerHTML="";if(!databaseJobs.length){list.innerHTML="<p>No database opportunities found.</p>";return;}databaseJobs.forEach(j=>{const card=document.createElement("div");card.className="job";const h=document.createElement("h3");h.textContent=j.name;const p=document.createElement("p");p.textContent=j.category;const edit=document.createElement("button");edit.className="action";edit.textContent="Edit";edit.onclick=()=>editJob(j.id);const del=document.createElement("button");del.className="action danger";del.textContent="Delete";del.onclick=()=>deleteJob(j.id);card.append(h,p,edit,del);list.appendChild(card);});}
+function editJob(id){const j=databaseJobs.find(x=>String(x.id)===String(id));if(!j)return;editingId=j.id;document.getElementById("jobName").value=j.name;document.getElementById("jobCategory").value=j.category;document.getElementById("jobDescription").value=j.description;document.getElementById("jobLink").value=j.link;document.getElementById("countryAvailability").value=j.country_availability||"";document.getElementById("formHeading").textContent="Edit Opportunity";document.getElementById("saveButton").textContent="Update Opportunity";window.scrollTo({top:0,behavior:"smooth"});}
+async function deleteJob(id){const j=databaseJobs.find(x=>String(x.id)===String(id));if(!j||!confirm("Delete "+j.name+" from the online database?"))return;try{const {error}=await supabaseClient.from("jobs").delete().eq("id",id);if(error)throw error;favorites=favorites.filter(x=>x!==j.name);saveLocalData();clearForm();await loadDatabaseJobs();renderFavorites();alert("Opportunity deleted.");}catch(e){alert("Could not delete opportunity: "+e.message);}}
+async function loadDatabaseJobs(){const status=document.getElementById("connectionStatus");if(!supabaseClient){status.textContent="Database connection is unavailable. Check your internet connection.";status.className="status error";renderJobs();return;}try{const {data,error}=await supabaseClient.from("jobs").select("id,name,category,description,link,country_availability").order("id",{ascending:true});if(error)throw error;databaseJobs=data||[];status.textContent="Database connected. Records: "+databaseJobs.length+" | Total opportunities: "+allJobs().length;status.className="status";renderJobs();renderFavorites();if(currentUser&&currentUser.id===ADMIN_USER_ID)renderAdminJobs();}catch(e){console.error("Supabase error:",e);status.textContent="Could not load database opportunities: "+e.message;status.className="status error";renderJobs();}}
+async function checkAdminSession(){if(!supabaseClient)return;try{const {data,error}=await supabaseClient.auth.getSession();if(error)throw error;const user=data.session?.user;if(user&&user.id===ADMIN_USER_ID)currentUser=user;else{currentUser=null;if(user)await supabaseClient.auth.signOut();}updateAdminDisplay();}catch(e){console.error("Session error:",e);}}
+renderJobs();renderFavorites();
+if(supabaseClient){checkAdminSession();loadDatabaseJobs();supabaseClient.auth.onAuthStateChange((event)=>{if(event==="SIGNED_OUT"){currentUser=null;updateAdminDisplay();}});}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("./service-worker.js").catch(e=>console.log("Service worker:",e));});}
 </script>
-
 </body>
 </html>
